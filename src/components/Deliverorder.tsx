@@ -1,5 +1,5 @@
-import React from "react";
-import { Table, Tag } from "antd";
+import React, { useState } from "react";
+import { Table, Tag, Input, Card } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 interface Order {
@@ -13,6 +13,7 @@ interface Order {
 }
 
 const Deliverorder: React.FC = () => {
+  const [searchText, setSearchText] = useState<string>("");
  const Deliverorders: Order[] = [
   {
     key: "1",
@@ -61,10 +62,10 @@ const Deliverorder: React.FC = () => {
       key: "deliveryAddress",
     },
     {
-      title: "Total (PKR)",
+      title: "Total (₦)",
       dataIndex: "total",
       key: "total",
-      render: (value) => `Rs. ${value.toLocaleString()}`,
+      render: (value) => `₦ ${value.toLocaleString()}`,
     },
     {
       title: "Status",
@@ -88,33 +89,33 @@ const Deliverorder: React.FC = () => {
     // },
   ];
 
-  return (
-    <div style={{ padding: 20 }}>
-      <h2 className="text-xl font-semibold mb-4">Deliver Orders</h2>
-      <Table columns={columns} dataSource={Deliverorders} rowKey="key" scroll={{ x: 'max-content' }} />
+  const filteredOrders = Deliverorders.filter(order =>
+    order.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
+    order.customer.toLowerCase().includes(searchText.toLowerCase()) ||
+    order.deliveryAddress.toLowerCase().includes(searchText.toLowerCase())
+  );
 
-      {/* <Modal
-        title="Order Details"
-        open={open}
-        onCancel={() => setOpen(false)}
-        footer={[
-          <Button key="close" onClick={() => setOpen(false)}>
-            Close
-          </Button>,
-        ]}
-        className="!w-200"
-      >
-        {selectedOrder && (
-          <div className="flex flex-col gap-2">
-            <p><strong>Order ID:</strong> {selectedOrder.orderId}</p>
-            <p><strong>Customer:</strong> {selectedOrder.customer}</p>
-            <p><strong>Phone:</strong> {selectedOrder.phone}</p>
-            <p><strong>Delivery Address:</strong> {selectedOrder.deliveryAddress}</p>
-            <p><strong>Total:</strong> Rs. {selectedOrder.total.toLocaleString()}</p>
-            <p><strong>Status:</strong> <Tag color="green">{selectedOrder.status}</Tag></p>
-          </div>
-        )}
-      </Modal> */}
+  return (
+    <div className="p-5">
+      <Card className="rounded-lg shadow-md mb-5">
+        <h2 className="text-2xl font-semibold mb-4">Deliver Orders</h2>
+        <Input.Search
+          placeholder="Search orders by ID, customer, or address"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={(value) => setSearchText(value)}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="mb-4"
+        />
+        <Table
+          columns={columns}
+          dataSource={filteredOrders}
+          rowKey="key"
+          scroll={{ x: 'max-content' }}
+          className="w-full"
+        />
+      </Card>
     </div>
   );
 };

@@ -36,41 +36,50 @@ const Dashboard: React.FC = () => {
     <div >
       <Row gutter={16} className="mb-4 flex sm:gap-0 gap-4">
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md">
-            <ShoppingCartOutlined className="text-3xl !text-blue-600 mb-2" />
-            <h3 className="text-lg font-semibold">Total Orders</h3>
-            <p className="text-2xl font-bold">120</p>
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <ShoppingCartOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Orders</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md">
-            <ClockCircleOutlined className="text-3xl !text-orange-500 mb-2" />
-            <h3 className="text-lg font-semibold">Pickup Orders</h3>
-            <p className="text-2xl font-bold">25</p>
+          <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <ClockCircleOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Pickup Orders</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>25</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md">
-            <CarOutlined className="text-3xl !text-indigo-500 mb-2" />
-            <h3 className="text-lg font-semibold">In Transit</h3>
-            <p className="text-2xl font-bold">15</p>
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <CarOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>In Transit</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>15</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md">
-            <CheckCircleOutlined className="text-3xl !text-green-600 mb-2" />
-            <h3 className="text-lg font-semibold">Delivered</h3>
-            <p className="text-2xl font-bold">80</p>
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "green"  }}>
+            <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+              <CheckCircleOutlined className="text-3xl" style={{ color: "white" }} />
+            </div>
+            {/* <CheckCircleOutlined className="text-3xl mb-2" style={{ color: "white" }} /> */}
+            <h3 className="text-lg font-semibold" style={{ color: "white" }}>Delivered</h3>
+            <p className="text-2xl font-bold" style={{ color: "white" }}>80</p>
           </Card>
         </Col>
       </Row>
 
       {/* Chart + Recent Orders */}
-      <Row gutter={16}>
-        <Col xs={24} md={12}  >
-          <Card className="rounded-2xl shadow-md sm:w-255">
-            <h3 className="text-lg font-semibold">Order Distribution</h3>
-            <ResponsiveContainer width="100%" height={240} className="sm:h-150">
+      <Row gutter={16} className="min-h-[300px]">
+        <Col xs={24}>
+          <Card className="rounded-2xl shadow-md " style={{ width: "100%", height: "100%" }}>
+            <h3 className="text-lg font-semibold" style={{ color: "#000080" }}>Order Distribution</h3>
+            <ResponsiveContainer width="100%" height={300} >
               <PieChart>
                 <Pie
                   data={chartData}

@@ -22,7 +22,7 @@ const DropdownMenu: React.FC = () => {
     className="mr-10"
   >
     <a onClick={(e) => e.preventDefault()}>
-      <Space>
+      <Space style={{ color: '#fff' }}>
         Admin
         <DownOutlined />
       </Space>

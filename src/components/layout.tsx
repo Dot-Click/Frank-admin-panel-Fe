@@ -1,13 +1,11 @@
 import {
     CarOutlined,
     HomeOutlined,
-    LogoutOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
+    MenuOutlined,
     ProfileOutlined,
     ShoppingCartOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import DropdownMenu from './Dropdown';
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -17,84 +15,82 @@ const { Header, Sider, Content } = Layout;
 const DashboardLayout = () => {
     const navigate = useNavigate()
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
 
     return (
         <div>
             <Layout>
-                <Sider trigger={null} collapsible collapsed={collapsed} className='min-h-120' width={250} style={{
-                    background: "white",
+                <Sider trigger={null} collapsible collapsed={collapsed} className='min-h-screen' width={260} style={{
+                    background: "linear-gradient(to bottom, #000080, #000040)", // Dark blue gradient
+                    paddingTop: 20,
+                    boxShadow: "2px 0 6px rgba(0, 0, 0, 0.1)"
                 }}>
                     <div className="demo-logo-vertical" />
-                    <div className='flex justify-center items-center cursor-pointer'>
-                        <ShoppingCartOutlined className='text-[60px] mt-4' onClick={() => navigate("/dashboard")} />
+                    <div className='flex justify-center items-center cursor-pointer mb-6'>
+                        <ShoppingCartOutlined className='text-[60px]' style={{ color: '#fff' }} onClick={() => navigate("/dashboard")} />
                     </div>
                     <Menu
-                        style={{ marginTop: 26 }}
+                        style={{ marginTop: 26, background: "transparent", borderRight: "none" }}
                         className="flex flex-col h-120"
-                        theme="light"
+                        theme="dark"
                         mode="inline"
                         defaultSelectedKeys={['1']}
                         items={[
                             {
                                 key: '1',
-                                icon: <HomeOutlined />,
+                                icon: <HomeOutlined style={{ color: '#fff' }} />,
                                 label: 'Dashboard',
-                                onClick: () => navigate("/dashboard")
+                                onClick: () => navigate("/dashboard"),
+                                style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '2',
-                                icon: <ShoppingCartOutlined />,
+                                icon: <ShoppingCartOutlined style={{ color: '#fff' }} />,
                                 label: 'Pickup Orders',
-                                onClick: () => navigate("/dashboard/pickup-orders")
+                                onClick: () => navigate("/dashboard/pickup-orders"),
+                                style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '3',
-                                icon: <CarOutlined />,
+                                icon: <CarOutlined style={{ color: '#fff' }} />,
                                 label: 'Deliver Orders',
-                                onClick: () => navigate("/dashboard/deliver-orders")
+                                onClick: () => navigate("/dashboard/deliver-orders"),
+                                style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '4',
-                                icon: <ProfileOutlined />,
+                                icon: <ProfileOutlined style={{ color: '#fff' }} />,
                                 label: 'Order Status Management',
-                                onClick: () => navigate("/dashboard/status-management")
+                                onClick: () => navigate("/dashboard/status-management"),
+                                style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                         ]}
                     />
-                    <Button
-                        type="primary"
-                        danger
-                        icon={<LogoutOutlined />}
-                        block
-                        className={`mt-4 mx-1 ${collapsed ? "w-12 h-12 flex items-center justify-center p-0" : "sm:!w-60"}`}
-                        onClick={() => navigate("/")}
-                    >
-                        {!collapsed && "Logout"}
-                    </Button>
                 </Sider>
                 <Layout>
-                    <Header style={{ padding: 0, background: colorBgContainer, display: "flex", justifyContent: "space-between" }}>
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                        />
+                    <Header style={{ padding: 0, background: "linear-gradient(to right, #000080, #000040)", display: "flex", justifyContent: "space-between", alignItems: "center", height: 64, boxShadow: "0 2px 6px rgba(0, 0, 0, 0.1)" }}>
+                        <div className='flex items-center gap-2'>
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuOutlined style={{ color: '#fff' }} /> : <MenuOutlined style={{ color: '#fff' }} />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                    color: '#fff'
+                                }}
+                            />
+                        </div>
                         <DropdownMenu />
                     </Header>
                     <Content
                         style={{
                             margin: '24px 16px',
                             padding: 24,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
+                            // background: "white",
+                            // border: "1px solid #e0e0e0",
+                            borderRadius: 10,
+                            // boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)"
                         }}
                     >
                         <Outlet />
