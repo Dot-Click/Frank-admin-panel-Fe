@@ -35,7 +35,7 @@ const AppLayout = () => {
         <Form
           name="basic"
           labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
+          wrapperCol={{ span: 28 }}
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
@@ -47,9 +47,10 @@ const AppLayout = () => {
           <Form.Item wrapperCol={{ span: 28 }}>
             <Title className="m-0 mb-1 text-lg text-center">Admin Login</Title>
             <p className="mb-3 -mt-4 text-gray-600 text-sm text-center">Log in to access your account</p>
-            <Form.Item<FieldType>
+
+            <Form.Item <FieldType>
+              style={{padding: '0 20px'}}
               name="Email"
-              
               rules={[
                 { required: true, message: "Please input your email!" },
                 { type: 'email', message: 'Please enter a valid email!' }
@@ -62,8 +63,9 @@ const AppLayout = () => {
                 defaultValue={"admin@gmail.com"}
               />
             </Form.Item>
-
+ 
             <Form.Item<FieldType>
+              style={{padding: '0 20px'}}
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
@@ -79,6 +81,7 @@ const AppLayout = () => {
             </Form.Item>
 
             <Form.Item
+              style={{padding: '0 20px'}}
             >
               <Button
                 type="primary"
@@ -91,6 +94,7 @@ const AppLayout = () => {
                 Login
               </Button>
             </Form.Item>
+
           </Form.Item>
         </Form>
       </Sider>
