@@ -1,9 +1,11 @@
 import {
-    CarOutlined,
     HomeOutlined,
     MenuOutlined,
     ProfileOutlined,
+    SettingOutlined,
+    ShopOutlined,
     ShoppingCartOutlined,
+    UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
 import DropdownMenu from './Dropdown';
@@ -37,32 +39,39 @@ const DashboardLayout = () => {
                         items={[
                             {
                                 key: '1',
-                                icon: <HomeOutlined style={{ color: '#fff' }} />,
+                                icon: <HomeOutlined style={{ color: '#fff', fontSize: '16px' }} />,
                                 label: 'Dashboard',
                                 onClick: () => navigate("/dashboard"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '2',
-                                icon: <ShoppingCartOutlined style={{ color: '#fff' }} />,
-                                label: 'Pickup Orders',
-                                onClick: () => navigate("/dashboard/pickup-orders"),
+                                icon: <ShopOutlined style={{ color: '#fff', fontSize: '16px' }} />,
+                                label: 'Wholesaler Details',
+                                onClick: () => navigate("/dashboard/wholesaler-details"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '3',
-                                icon: <CarOutlined style={{ color: '#fff' }} />,
-                                label: 'Deliver Orders',
-                                onClick: () => navigate("/dashboard/deliver-orders"),
+                                icon: <UserOutlined style={{ color: '#fff', fontSize: '16px' }} />,
+                                label: 'Retailer Details',
+                                onClick: () => navigate("/dashboard/retailer-details"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
                                 key: '4',
-                                icon: <ProfileOutlined style={{ color: '#fff' }} />,
+                                icon: <ProfileOutlined style={{ color: '#fff', fontSize: '16px' }} />,
                                 label: 'Order Status Management',
                                 onClick: () => navigate("/dashboard/status-management"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
+                            {
+                                key: '5',
+                                icon: <SettingOutlined style={{ color: '#fff', fontSize: '16px' }} />,
+                                label: 'Settings',
+                                onClick: () => navigate("/dashboard/settings"),
+                                style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
+                            }
                         ]}
                     />
                 </Sider>

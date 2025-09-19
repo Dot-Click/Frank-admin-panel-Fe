@@ -1,55 +1,86 @@
 import React, { useState } from "react";
-import { Table, Tag, Space, Select, Modal, Card, Input } from "antd";
+import { Table, Tag, Space, Select, Modal, Card, Input, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
+
+interface Item {
+  productName: string;
+  quantity: number;
+  price: number;
+}
 
 interface Order {
   key: string;
   orderId: string;
-  customer: string;
+  Retailer: string;
+  BusinessName: string;
   phone: string;
   address: string;
   total: number;
-  status: "picked up" | "in transit" | "Delivered";
+  status: "Picked up" | "In Transit" | "Delivered";
+  items: Item[];
 }
 
 const StatusManagement: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
+  const [filter, setFilter] = useState<string>("");
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orders, setOrders] = useState<Order[]>([
     {
       key: "1",
       orderId: "ORD1001",
-      customer: "Ali Khan",
+      Retailer: "Ali Khan",
+      BusinessName: "Galaxy Enterprise",
       phone: "0300-1234567",
       address: "Wholesale Market, Karachi",
       total: 12000,
-      status: "picked up",
+      status: "Picked up",
+      items: [
+        { productName: "Product A", quantity: 2, price: 5000 },
+        { productName: "Product B", quantity: 1, price: 2000 },
+        { productName: "Product C", quantity: 3, price: 1000 },
+      ],
     },
     {
       key: "2",
       orderId: "ORD1002",
-      customer: "Ahmed Raza",
+      Retailer: "Ahmed Raza",
+      BusinessName: "Star Enterprise",
       phone: "0311-9876543",
       address: "Shahra-e-Faisal, Karachi",
       total: 8000,
-      status: "in transit",
+      status: "In Transit",
+      items: [
+        { productName: "Product D", quantity: 1, price: 3000 },
+        { productName: "Product E", quantity: 2, price: 2500 },
+      ],
     },
     {
       key: "3",
       orderId: "ORD1003",
-      customer: "Raheel",
+      Retailer: "Raheel",
+      BusinessName: "Moon Enterprise",
       phone: "0311-9876543",
       address: "Bolten Market, Karachi",
       total: 8000,
       status: "Delivered",
+      items: [
+        { productName: "Product F", quantity: 5, price: 1500 },
+      ],
     },
     {
       key: "4",
       orderId: "ORD1004",
-      customer: "Fatima",
+      Retailer: "Fatima",
+      BusinessName: "Sunrise Enterprise",
       phone: "0333-1122334",
       address: "Clifton, Karachi",
       total: 15000,
-      status: "picked up",
+      status: "Picked up",
+      items: [
+        { productName: "Product G", quantity: 10, price: 1000 },
+        { productName: "Product H", quantity: 1, price: 5000 },
+      ],
     },
   ]);
 
@@ -72,9 +103,21 @@ const StatusManagement: React.FC = () => {
     });
   };
 
+  const handleView = (record: Order) => {
+    console.log("handleView called with record:", record);
+    setSelectedOrder(record);
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedOrder(null);
+  };
+
   const columns: ColumnsType<Order> = [
     { title: "Order ID", dataIndex: "orderId", key: "orderId" },
-    { title: "Customer", dataIndex: "customer", key: "customer" },
+    { title: "Retailer", dataIndex: "Retailer", key: "Retailer" },
+    { title: "Business Name", dataIndex: "BusinessName", key: "BusinessName" },
     { title: "Phone", dataIndex: "phone", key: "phone" },
     { title: "Address", dataIndex: "address", key: "address" },
     {
@@ -89,8 +132,8 @@ const StatusManagement: React.FC = () => {
       key: "status",
       render: (status) => {
         let color = "default";
-        if (status === "picked up") color = "orange";
-        if (status === "in transit") color = "blue";
+        if (status === "Picked up") color = "orange";
+        if (status === "In Transit") color = "blue";
         if (status === "Delivered") color = "green";
         return <Tag color={color}>{status}</Tag>;
       },
@@ -105,37 +148,69 @@ const StatusManagement: React.FC = () => {
             style={{ width: 150 }}
             onChange={(value) => handleStatusChange(record.key, value)}
             options={[
-              { value: "picked up", label: "Picked up" },
-              { value: "in transit", label: "In Transit" },
+              { value: "Picked up", label: "Picked up" },
+              { value: "In Transit", label: "In Transit" },
               { value: "Delivered", label: "Delivered" },
             ]}
           />
-          {/* <Button style={{ backgroundColor: "blue", color: "white" }}>
-            View
-          </Button> */}
         </Space>
       ),
     },
+    {
+      title: "Order Details",
+      key: "orderDetails",
+      render: (_, record) => (
+        <>
+          <Button onClick={() => handleView(record)} style={{ background: "linear-gradient(to right, #000080, #00014a)", color: "white" }}>
+            Order Details
+          </Button>
+        </>
+      ),
+    }
   ];
 
-  const filteredOrders = orders.filter(order => 
-    order.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
-    order.customer.toLowerCase().includes(searchText.toLowerCase()) ||
-    order.address.toLowerCase().includes(searchText.toLowerCase())
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch =
+      order.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
+      order.BusinessName.toLowerCase().includes(searchText.toLowerCase()) ||
+      order.Retailer.toLowerCase().includes(searchText.toLowerCase()) ||
+      order.address.toLowerCase().includes(searchText.toLowerCase());
+
+    const matchesFilter = filter ? order.status === filter : true;
+
+    return matchesSearch && matchesFilter;
+  }
+
   )
 
   return (
     <Card className="rounded-lg shadow-md mb-5">
       <h2 className="text-2xl font-semibold mb-4">Order Status Management</h2>
-      <Input.Search
-        placeholder="Search orders by ID, customer, or address"
-        allowClear
-        enterButton="Search"
-        size="large"
-        onSearch={(value) => setSearchText(value)}
-        onChange={(e) => setSearchText(e.target.value)}
-        className="mb-4"
-      />
+      <div className="flex flex-wrap justify-between gap-4">
+        <Input.Search
+          placeholder="Search orders by ID, customer, or address"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={(value) => setSearchText(value)}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="mb-4"
+          style={{ width: "100%", maxWidth: 500, marginTop: "4px" }}
+          />
+        <Select
+          placeholder="Filter by status"
+          size="large"
+          allowClear
+          options={[
+            { value: "Picked up", label: "Picked up" },
+            { value: "In Transit", label: "In Transit" },
+            { value: "Delivered", label: "Delivered" },
+          ]}
+          onChange={(value) => setFilter(value)}
+          className="mb-4"
+          style={{ width: "100%", maxWidth: 300, marginTop: "4px", marginBottom: "4px" }}
+          />
+      </div>
       <Table
         columns={columns}
         dataSource={filteredOrders}
@@ -143,8 +218,42 @@ const StatusManagement: React.FC = () => {
         scroll={{ x: 'max-content' }}
         className="w-full"
       />
+      
+      <Modal
+        title="Order Details"
+        open={isModalVisible}
+        onCancel={handleCancel}
+        footer={null} // No footer buttons needed as it's just for display
+        width={600}
+      >
+        {selectedOrder && (
+          <div className="flex flex-col gap-4 py-4">
+            <div className="grid grid-cols-2 gap-2">
+              <p><strong>Order ID:</strong> {selectedOrder.orderId}</p>
+              <p><strong>Retailer:</strong> {selectedOrder.Retailer}</p>
+              <p><strong>Business Name:</strong> {selectedOrder.BusinessName}</p>
+              <p><strong>Phone:</strong> {selectedOrder.phone}</p>
+              <p><strong>Address:</strong> {selectedOrder.address}</p>
+              <p><strong>Total:</strong> ₦ {selectedOrder.total.toLocaleString()}</p>
+              <p><strong>Status:</strong> <Tag color={selectedOrder.status === "Picked up" ? "orange" : selectedOrder.status === "In Transit" ? "blue" : "green"}>{selectedOrder.status}</Tag></p>
+            </div>
+            <h3 className="text-lg font-semibold mt-2">Items:</h3>
+            <Table
+              dataSource={selectedOrder.items}
+              columns={[
+                { title: "Product Name", dataIndex: "productName", key: "productName" },
+                { title: "Quantity", dataIndex: "quantity", key: "quantity" },
+                { title: "Price (₦)", dataIndex: "price", key: "price", render: (text) => `₦ ${text.toLocaleString()}` },
+              ]}
+              pagination={false}
+              rowKey="productName"
+              size="small"
+            />
+          </div>
+        )}
+      </Modal>
     </Card>
   );
 };
 
-      export default StatusManagement;
+export default StatusManagement;

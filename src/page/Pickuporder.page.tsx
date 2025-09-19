@@ -1,4 +1,4 @@
-import PickupOrders from "../components/Pickuporder"
+import PickupOrders from "../components/WholeSalerDetail"
 
 const Pickuporderpage = () => {
   return (

@@ -1,23 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Loginpage from "./page/Login.page";
 import DashboardLayout from "./components/layout";
 import Pickuporderpage from "./page/Pickuporder.page";
 import DashboardPage from "./page/Dashboard";
 import Deliverorderpage from "./page/Deliverorder.page";
 import StatusManagementpage from "./page/StatusManagement.page";
+import LoginForm from "./components/LoginForm";
+import ForgotPasswordForm from "./components/ForgotPasswordForm";
+import AuthLayout from "./components/Authlayout";
+import { SettingPage } from "./page/Setting.page";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Loginpage />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+        </Route>
 
         {/* Dashboard Layout with children */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardPage />} />
-          <Route path="pickup-orders" element={<Pickuporderpage />} />
-          <Route path="deliver-orders" element={<Deliverorderpage />} />
+          <Route path="wholesaler-details" element={<Pickuporderpage />} />
+          <Route path="retailer-details" element={<Deliverorderpage />} />
           <Route path="status-management" element={<StatusManagementpage />} />
+          <Route path="settings" element={<SettingPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

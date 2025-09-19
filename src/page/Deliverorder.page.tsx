@@ -1,4 +1,4 @@
-import Deliverorder from "../components/Deliverorder";
+import Deliverorder from "../components/RetailerDetail";
 
 const Deliverorderpage = () => {
   return <Deliverorder />;
