@@ -4,7 +4,6 @@ import {
     ProfileOutlined,
     SettingOutlined,
     ShopOutlined,
-    ShoppingCartOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
@@ -22,13 +21,13 @@ const DashboardLayout = () => {
         <div>
             <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed} className='min-h-screen' width={260} style={{
-                    background: "linear-gradient(to bottom, #000080, #000040)", // Dark blue gradient
+                    background: "linear-gradient(to bottom, #000080, #000040)", 
                     paddingTop: 20,
                     boxShadow: "2px 0 6px rgba(0, 0, 0, 0.1)"
                 }}>
-                    <div className="demo-logo-vertical" />
-                    <div className='flex justify-center items-center cursor-pointer mb-6'>
-                        <ShoppingCartOutlined className='text-[60px]' style={{ color: '#fff' }} onClick={() => navigate("/dashboard")} />
+                    {/* <div className="demo-logo-vertical" /> */}
+                    <div className='flex justify-center items-center cursor-pointer'>
+                        <img src="/DARcAppLogo.png" alt="" onClick={() => navigate("/dashboard")} width={80}/>
                     </div>
                     <Menu
                         style={{ marginTop: 26, background: "transparent", borderRight: "none" }}

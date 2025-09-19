@@ -15,13 +15,22 @@ export const Setting = () => {
     return (
         <div className="p-5">
             <Card className="rounded-lg shadow-md mb-5">
-                <h2 className="text-2xl font-semibold mb-4">{pathname}</h2>
+                <h2 className="text-2xl font-semibold mb-4 capitalize">{pathname}</h2>
                 <Form layout="vertical">
+                    <Form.Item label="Name" name="Name"
+                    rules={[{ required: true, message: "Please input your Name!" }, { type: 'string', message: 'Please enter a valid Name!' }]}
+                    >
+                        <Input
+                            placeholder="Name"
+                            defaultValue={"Admin"}
+                        />
+                    </Form.Item>
                     <Form.Item label="Email" name="email"
                     rules={[{ required: true, message: "Please input your email!" }, { type: 'email', message: 'Please enter a valid email!' }]}
                     >
                         <Input
                             placeholder="Email"
+                            defaultValue={"admin@gmail.com"}
                         />
                     </Form.Item>
                     <Form.Item label="Password" name="password"
