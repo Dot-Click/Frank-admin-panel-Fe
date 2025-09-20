@@ -23,7 +23,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="wholesaler-details" element={<Pickuporderpage />} />
           <Route path="retailer-details" element={<Deliverorderpage />} />
-          <Route path="status-management" element={<StatusManagementpage />} />
+          <Route path="order-status-management" element={<StatusManagementpage />} />
           <Route path="settings" element={<SettingPage />} />
         </Route>
       </Routes>

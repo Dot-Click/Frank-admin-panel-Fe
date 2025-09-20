@@ -14,7 +14,7 @@ export const Setting = () => {
     // }
     return (
         <div className="p-5">
-            <Card className="rounded-lg shadow-md mb-5">
+            <Card className="rounded-lg shadow-md mb-5 w-full">
                 <h2 className="text-2xl font-semibold mb-4 capitalize">{pathname}</h2>
                 <Form layout="vertical">
                     <Form.Item label="Name" name="Name"

@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
 import DropdownMenu from './Dropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
@@ -16,6 +16,21 @@ const { Header, Sider, Content } = Layout;
 const DashboardLayout = () => {
     const navigate = useNavigate()
     const [collapsed, setCollapsed] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) { 
+                setCollapsed(true);
+            } else {
+                setCollapsed(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); 
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <div>
@@ -25,7 +40,6 @@ const DashboardLayout = () => {
                     paddingTop: 20,
                     boxShadow: "2px 0 6px rgba(0, 0, 0, 0.1)"
                 }}>
-                    {/* <div className="demo-logo-vertical" /> */}
                     <div className='flex justify-center items-center cursor-pointer'>
                         <img src="/DARcAppLogo.png" alt="" onClick={() => navigate("/dashboard")} width={80}/>
                     </div>
@@ -61,7 +75,7 @@ const DashboardLayout = () => {
                                 key: '4',
                                 icon: <ProfileOutlined style={{ color: '#fff', fontSize: '16px' }} />,
                                 label: 'Order Status Management',
-                                onClick: () => navigate("/dashboard/status-management"),
+                                onClick: () => navigate("/dashboard/order-status-management"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
@@ -87,6 +101,7 @@ const DashboardLayout = () => {
                                     height: 64,
                                     color: '#fff'
                                 }}
+                                className="md:hidden" // Hide on medium and larger screens
                             />
                         </div>
                         <DropdownMenu />

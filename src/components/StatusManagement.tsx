@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Table, Tag, Space, Select, Modal, Card, Input, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useLocation } from "react-router-dom";
 
 interface Item {
   productName: string;
@@ -25,6 +26,8 @@ const StatusManagement: React.FC = () => {
   const [filter, setFilter] = useState<string>("");
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const location = useLocation()
+  const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
   const [orders, setOrders] = useState<Order[]>([
     {
       key: "1",
@@ -184,8 +187,8 @@ const StatusManagement: React.FC = () => {
   )
 
   return (
-    <Card className="rounded-lg shadow-md mb-5">
-      <h2 className="text-2xl font-semibold mb-4">Order Status Management</h2>
+    <Card className="rounded-lg shadow-md mb-5 w-full" >
+      <h2 className="text-2xl font-semibold mb-4 capitalize break-words">{pathname}</h2>
       <div className="flex flex-wrap justify-between gap-4">
         <Input.Search
           placeholder="Search orders by ID, customer, or address"
@@ -194,8 +197,8 @@ const StatusManagement: React.FC = () => {
           size="large"
           onSearch={(value) => setSearchText(value)}
           onChange={(e) => setSearchText(e.target.value)}
-          className="mb-4"
-          style={{ width: "100%", maxWidth: 500, marginTop: "4px" }}
+          className="mb-4 lg:max-w-[500px]"
+          style={{ width: "100%", marginTop: "4px" }}
           />
         <Select
           placeholder="Filter by status"
@@ -207,10 +210,11 @@ const StatusManagement: React.FC = () => {
             { value: "Delivered", label: "Delivered" },
           ]}
           onChange={(value) => setFilter(value)}
-          className="mb-4"
-          style={{ width: "100%", maxWidth: 300, marginTop: "4px", marginBottom: "4px" }}
+          className="mb-4 lg:max-w-[300px]"
+          style={{ width: "100%", marginTop: "4px", marginBottom: "4px" }}
           />
       </div>
+      <div className="overflow-x-auto">
       <Table
         columns={columns}
         dataSource={filteredOrders}
@@ -218,6 +222,7 @@ const StatusManagement: React.FC = () => {
         scroll={{ x: 'max-content' }}
         className="w-full"
       />
+      </div>
       
       <Modal
         title="Order Details"
