@@ -79,7 +79,7 @@ const Deliverorder: React.FC = () => {
               { value: "Retailer C", label: "Retailer C" },
             ]}
             onChange={(value) => setFilter(value)}
-            className="w-full lg:max-w-[500px]"
+            className="w-full lg:max-w-[300px]"
           />
         </div>
         <div className="overflow-x-auto mt-4">

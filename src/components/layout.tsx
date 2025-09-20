@@ -114,11 +114,6 @@ const DashboardLayout = () => {
                             margin: isMobile ? '6px' : '24px 16px',
                             padding: isMobile ? '0' : '24px',
                             borderRadius: 10,
-                            minHeight: isMobile ? '112vh' : '100%',
-                            height: isMobile ? '100vh' : '100%',
-                            overflow: 'auto',
-                            overflowX: 'hidden',
-                            overflowY: 'auto',
                         }}
                     >
                         <Outlet />
