@@ -78,14 +78,14 @@ const Dashboard: React.FC = () => {
       <Row gutter={16} className="min-h-[300px]">
         <Col xs={24}>
           <Card className="rounded-2xl shadow-md " style={{ width: "100%", height: "100%" }}>
-            <h3 className="text-lg font-semibold" style={{ color: "#000080" }}>Order Distribution</h3>
-            <ResponsiveContainer width="100%" height={300} >
+            <h3 className="text-lg font-semibold text-nowrap" style={{ color: "#000080" }}>Order Distribution</h3>
+            <ResponsiveContainer width="100%" height={250} className="mt-4">
               <PieChart>
                 <Pie
                   data={chartData}
                   cx="50%"
                   cy="50%"
-                  outerRadius={80}
+                  outerRadius={window.innerWidth < 640 ? 60 : 80}
                   fill="#8884d8"
                   dataKey="value"
                   label
@@ -100,18 +100,6 @@ const Dashboard: React.FC = () => {
             </ResponsiveContainer>
           </Card>
         </Col>
-
-        {/* <Col xs={24} md={12}>
-          <Card className="rounded-2xl shadow-md">
-            <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
-            <Table
-              columns={columns}
-              dataSource={recentOrders}
-              pagination={false}
-              size="small"
-            />
-          </Card>
-        </Col> */}
       </Row>
     </div>
   );

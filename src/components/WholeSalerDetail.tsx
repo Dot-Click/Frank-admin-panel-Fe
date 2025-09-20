@@ -53,7 +53,6 @@ const PickupOrders: React.FC = () => {
     },
   ];
 
-
   const columns: ColumnsType<Order> = [
     { title: "Wholesaler Name", dataIndex: "wholesalerName", key: "wholesalerName" },
     { title: "Wholesaler Business Name", dataIndex: "wholesalerBusinessName", key: "wholesalerBusinessName" },
@@ -79,7 +78,7 @@ const PickupOrders: React.FC = () => {
   return (
     <div className="p-4 sm:p-6">
       <Card className="rounded-lg shadow-md mb-5 w-full">
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 capitalize break-words">
+        <h2 className="text-2xl font-semibold mb-4 capitalize break-words text-nowrap">
           {pathname}
         </h2>
 

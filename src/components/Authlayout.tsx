@@ -1,14 +1,30 @@
 import { Layout } from 'antd';
+import { useState, useEffect } from 'react';
 const { Sider, Content } = Layout;
 import { Outlet } from 'react-router-dom';
 
 
 const AuthLayout: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial state
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Layout style={{ minHeight: '100vh', background: '#000080' }}>
       {/* Left Side Form */}
       <Sider
-        width={500}
+        width={isMobile ? '100%' : 500}
+        collapsed={isMobile}
+        collapsedWidth={0}
         style={{
           background: 'white',
           padding: '40px',
@@ -17,26 +33,28 @@ const AuthLayout: React.FC = () => {
         <Outlet />
       </Sider>
 
-      <Content
-        style={{
-          background: "#000080",
-          borderRadius: "25px",
-          backdropFilter: "blur(4px)",
-          border: "2px solid rgba(255,255,255,0.2)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-          textAlign: "center",
-          padding: "40px",
-          margin: "150px 60px"
-        }}
-      >
-        <img src="/DARcAppLogo.png" alt="" width={100} className='rounded-2xl'/>
-        <h1 className="text-4xl font-bold">DARc Logistics</h1>
-        <p className="text-lg max-w-md">Welcome to DARc Logistics</p>
-      </Content>
+      {!isMobile && (
+        <Content
+          style={{
+            background: "#000080",
+            borderRadius: "25px",
+            backdropFilter: "blur(4px)",
+            border: "2px solid rgba(255,255,255,0.2)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            textAlign: "center",
+            padding: "40px",
+            margin: "150px 60px"
+          }}
+        >
+          <img src="/DARcAppLogo.png" alt="" width={100} className='rounded-2xl'/>
+          <h1 className="text-4xl font-bold">DARc Logistics</h1>
+          <p className="text-lg max-w-md">Welcome to DARc Logistics</p>
+        </Content>
+      )}
 
 
       {/* Responsive Styling */}

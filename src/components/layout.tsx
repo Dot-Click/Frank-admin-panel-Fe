@@ -16,7 +16,7 @@ const { Header, Sider, Content } = Layout;
 const DashboardLayout = () => {
     const navigate = useNavigate()
     const [collapsed, setCollapsed] = useState(false);
-
+    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 768) { 
@@ -31,6 +31,10 @@ const DashboardLayout = () => {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, [window.innerWidth]);
 
     return (
         <div>
@@ -75,7 +79,7 @@ const DashboardLayout = () => {
                                 key: '4',
                                 icon: <ProfileOutlined style={{ color: '#fff', fontSize: '16px' }} />,
                                 label: 'Order Status Management',
-                                onClick: () => navigate("/dashboard/order-status-management"),
+                                onClick: () => navigate("/dashboard/order-status"),
                                 style: { margin: '10px 0', borderRadius: '8px', color: '#fff' }
                             },
                             {
@@ -101,19 +105,20 @@ const DashboardLayout = () => {
                                     height: 64,
                                     color: '#fff'
                                 }}
-                                className="md:hidden" // Hide on medium and larger screens
                             />
                         </div>
                         <DropdownMenu />
                     </Header>
                     <Content
                         style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            // background: "white",
-                            // border: "1px solid #e0e0e0",
+                            margin: isMobile ? '6px' : '24px 16px',
+                            padding: isMobile ? '0' : '24px',
                             borderRadius: 10,
-                            // boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)"
+                            minHeight: isMobile ? '112vh' : '100%',
+                            height: isMobile ? '100vh' : '100%',
+                            overflow: 'auto',
+                            overflowX: 'hidden',
+                            overflowY: 'auto',
                         }}
                     >
                         <Outlet />

@@ -58,8 +58,8 @@ const Deliverorder: React.FC = () => {
   return (
     <div className="p-5">
       <Card className="rounded-lg shadow-md mb-5 w-full">
-        <h2 className="text-2xl font-semibold mb-4 capitalize break-words">{pathname}</h2>
-        <div className="flex flex-col md:flex-row md:justify-between gap-4">
+        <h2 className="text-2xl font-semibold mb-4 capitalize break-words text-nowrap">{pathname}</h2>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 w-full">
           <Input.Search
             placeholder="Search orders by Retailer Name, Retailer Shop Name, Retailer Phone, or Address"
             allowClear
@@ -67,8 +67,7 @@ const Deliverorder: React.FC = () => {
             size="large"
             onSearch={(value) => setSearchText(value)}
             onChange={(e) => setSearchText(e.target.value)}
-            style={{ width: "100%", marginTop: "4px" }}
-            className="mb-4 lg:max-w-[500px]"
+            className="w-full lg:max-w-[500px]"
           />
           <Select
             placeholder="Filter by Retailer Name"
@@ -80,11 +79,10 @@ const Deliverorder: React.FC = () => {
               { value: "Retailer C", label: "Retailer C" },
             ]}
             onChange={(value) => setFilter(value)}
-            className="mb-4 lg:max-w-[300px]"
-            style={{ width: "100%", marginTop: "4px", marginBottom: "4px" }}
+            className="w-full lg:max-w-[500px]"
           />
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto mt-4">
         <Table
           columns={columns}
           dataSource={filteredOrders}

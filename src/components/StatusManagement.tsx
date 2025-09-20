@@ -86,15 +86,6 @@ const StatusManagement: React.FC = () => {
       ],
     },
   ]);
-
-  // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  // const [open, setOpen] = useState<boolean>(false);
-
-  // const HandleView = (order: Order) => {
-  //   setSelectedOrder(order);
-  //   setOpen(true);
-  // };
-
   const handleStatusChange = (key: string, newStatus: Order["status"]) => {
     setOrders((prev) =>
       prev.map((order) =>
@@ -188,8 +179,8 @@ const StatusManagement: React.FC = () => {
 
   return (
     <Card className="rounded-lg shadow-md mb-5 w-full" >
-      <h2 className="text-2xl font-semibold mb-4 capitalize break-words">{pathname}</h2>
-      <div className="flex flex-wrap justify-between gap-4">
+      <h2 className="text-2xl font-semibold mb-4 capitalize break-words text-nowrap">{pathname}</h2>
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 w-full">
         <Input.Search
           placeholder="Search orders by ID, customer, or address"
           allowClear
@@ -197,8 +188,7 @@ const StatusManagement: React.FC = () => {
           size="large"
           onSearch={(value) => setSearchText(value)}
           onChange={(e) => setSearchText(e.target.value)}
-          className="mb-4 lg:max-w-[500px]"
-          style={{ width: "100%", marginTop: "4px" }}
+          className="w-full lg:max-w-[500px]"
           />
         <Select
           placeholder="Filter by status"
@@ -210,11 +200,10 @@ const StatusManagement: React.FC = () => {
             { value: "Delivered", label: "Delivered" },
           ]}
           onChange={(value) => setFilter(value)}
-          className="mb-4 lg:max-w-[300px]"
-          style={{ width: "100%", marginTop: "4px", marginBottom: "4px" }}
+          className="w-full lg:max-w-[300px]"
           />
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-4">
       <Table
         columns={columns}
         dataSource={filteredOrders}
@@ -234,7 +223,7 @@ const StatusManagement: React.FC = () => {
         {selectedOrder && (
           <div className="flex flex-col gap-4 py-4">
             <div className="grid grid-cols-2 gap-2">
-              <p><strong>Order ID:</strong> {selectedOrder.orderId}</p>
+              <p ><strong>Order ID:</strong> {selectedOrder.orderId}</p>
               <p><strong>Retailer:</strong> {selectedOrder.Retailer}</p>
               <p><strong>Business Name:</strong> {selectedOrder.BusinessName}</p>
               <p><strong>Phone:</strong> {selectedOrder.phone}</p>

@@ -21,14 +21,14 @@ const LoginForm: React.FC = () => {
   return (
     <Form
       name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 28 }}
-      style={{ maxWidth: 600 }}
+      labelCol={{ xs: { span: 16 }, sm: { span: 8 }, md: { span: 8 } }} 
+      wrapperCol={{ xs: { span: 16 }, sm: { span: 16 }, md: { span: 16 } }} 
+      style={{ width: '100%', maxWidth: 600 }} 
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      className='flex justify-center items-center h-158'
+      className="flex justify-center items-center min-h-screen px-4"
     >
       <Form.Item wrapperCol={{ span: 28 }}>
         <Title className="m-0 mb-1 text-lg text-center">Admin Login</Title>
@@ -41,7 +41,7 @@ const LoginForm: React.FC = () => {
             { required: true, message: "Please input your email!" },
             { type: 'email', message: 'Please enter a valid email!' }
           ]}
-          className="sm:w-120"
+          className="sm:w-120 w-70"
         >
           <Input
             placeholder="Email"
@@ -57,7 +57,7 @@ const LoginForm: React.FC = () => {
             { required: true, message: "Please input your password!" },
             { min: 8, message: 'Password must be at least 8 characters long!' }
           ]}
-          className="sm:w-120"
+          className="sm:w-120 w-70"
         >
           <Input.Password
             placeholder="Password"
