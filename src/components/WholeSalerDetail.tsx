@@ -10,6 +10,8 @@ interface Order {
   wholesalerName: string;
   wholesalerBusinessName: string;
   wholesalerBankDetails: string;
+  Plaza: string;
+  Address: string;
   orderValue: number;
   wholesalerShare: number;
   ourCommission: number;
@@ -27,6 +29,8 @@ const PickupOrders: React.FC = () => {
       wholesalerName: "Khan Wholesalers",
       wholesalerBusinessName: "Khan & Sons Enterprises",
       wholesalerBankDetails: "Bank A/C: 123456789, Bank Name: ABC Bank",
+      Plaza: "ABC",
+      Address: "Street 123",
       orderValue: 10000,
       wholesalerShare: 7000,
       ourCommission: 3000,
@@ -37,6 +41,8 @@ const PickupOrders: React.FC = () => {
       wholesalerName: "Raza Distributors",
       wholesalerBusinessName: "Raza & Co.",
       wholesalerBankDetails: "Bank A/C: 987654321, Bank Name: XYZ Bank",
+      Plaza: "ABC",
+      Address: "Street 123",
       orderValue: 15000,
       wholesalerShare: 10000,
       ourCommission: 5000,
@@ -47,6 +53,8 @@ const PickupOrders: React.FC = () => {
       wholesalerName: "Raheel Traders",
       wholesalerBusinessName: "Raheel & Bros.",
       wholesalerBankDetails: "Bank A/C: 456789123, Bank Name: PQR Bank",
+      Plaza: "ABC",
+      Address: "Street 123",
       orderValue: 20000,
       wholesalerShare: 14000,
       ourCommission: 6000,
@@ -58,6 +66,8 @@ const PickupOrders: React.FC = () => {
     { title: "Wholesaler Business Name", dataIndex: "wholesalerBusinessName", key: "wholesalerBusinessName" },
     { title: "Wholesaler Phone", dataIndex: "wholesalerPhone", key: "wholesalerPhone" },
     { title: "Wholesaler Bank Details", dataIndex: "wholesalerBankDetails", key: "wholesalerBankDetails" },
+    { title: "Plaza", dataIndex: "Plaza", key: "Plaza" },
+    { title: "Address", dataIndex: "Address", key: "Address" },
     { title: "Order Value", dataIndex: "orderValue", key: "orderValue" },
     { title: "Wholesaler Share", dataIndex: "wholesalerShare", key: "wholesalerShare" },
     { title: "Our Commission", dataIndex: "ourCommission", key: "ourCommission" },

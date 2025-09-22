@@ -5,6 +5,9 @@ import {
   CarOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
+  ShopOutlined,
+  UserOutlined,
+  UserSwitchOutlined,
 } from "@ant-design/icons";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -33,10 +36,37 @@ const Dashboard: React.FC = () => {
   // ];
 
   return (
-    <div >
+    <div>
       <Row gutter={16} className="mb-4 flex sm:gap-0 gap-4">
-        <Col xs={24} sm={12} md={6}>
+         <Col xs={24} sm={12} md={6} className="mb-0 md:mb-2">
           <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <UserSwitchOutlined className="text-3xl" style={{ color: "#ffffff" }}/>
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Users</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
+          </Card>
+        </Col>
+         <Col xs={24} sm={12} md={6}>
+          <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <UserOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Retailers</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
+          </Card>
+        </Col>
+         <Col xs={24} sm={12} md={6}>
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
+          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+            <ShopOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            </div>
+            <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>WholeSaler</h3>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={6}>
+          <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
           <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
             <ShoppingCartOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
@@ -45,7 +75,7 @@ const Dashboard: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
           <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
             <ClockCircleOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
@@ -54,7 +84,7 @@ const Dashboard: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
+          <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
           <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
             <CarOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
