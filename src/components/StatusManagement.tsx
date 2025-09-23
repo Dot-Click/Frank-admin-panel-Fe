@@ -86,6 +86,7 @@ const StatusManagement: React.FC = () => {
       ],
     },
   ]);
+  
   const handleStatusChange = (key: string, newStatus: Order["status"]) => {
     setOrders((prev) =>
       prev.map((order) =>
@@ -98,7 +99,6 @@ const StatusManagement: React.FC = () => {
   };
 
   const handleView = (record: Order) => {
-    console.log("handleView called with record:", record);
     setSelectedOrder(record);
     setIsModalVisible(true);
   };
@@ -217,7 +217,7 @@ const StatusManagement: React.FC = () => {
         title="Order Details"
         open={isModalVisible}
         onCancel={handleCancel}
-        footer={null} // No footer buttons needed as it's just for display
+        footer={null}
         width={600}
       >
         {selectedOrder && (

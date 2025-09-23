@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Input, Card, Select } from "antd";
+import { Table, Input, Card, Select, Button, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -20,6 +20,8 @@ interface Order {
 const PickupOrders: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
   const Pickuporders: Order[] = [
@@ -61,6 +63,15 @@ const PickupOrders: React.FC = () => {
     },
   ];
 
+  const handleView = (record: Order) => {
+    setSelectedOrder(record);
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedOrder(null);
+  };
   const columns: ColumnsType<Order> = [
     { title: "Wholesaler Name", dataIndex: "wholesalerName", key: "wholesalerName" },
     { title: "Wholesaler Business Name", dataIndex: "wholesalerBusinessName", key: "wholesalerBusinessName" },
@@ -71,6 +82,19 @@ const PickupOrders: React.FC = () => {
     { title: "Order Value", dataIndex: "orderValue", key: "orderValue" },
     { title: "Wholesaler Share", dataIndex: "wholesalerShare", key: "wholesalerShare" },
     { title: "Our Commission", dataIndex: "ourCommission", key: "ourCommission" },
+    {
+      title: "Details",
+      dataIndex: "Details",
+      key: "Details",
+      render: (_, record) => (
+        <>
+          <Button onClick={() => handleView(record)} style={{ background: "linear-gradient(to right, #000080, #00014a)", color: "white" }}>
+            Details
+          </Button>
+        </>
+      ),
+
+    },
   ];
 
   const filteredOrders = Pickuporders.filter(order => {
@@ -128,6 +152,34 @@ const PickupOrders: React.FC = () => {
             className="w-full"
           />
         </div>
+        <Modal
+          title="WholeSaler Details"
+          open={isModalVisible}
+          onCancel={handleCancel}
+          width={950}
+          style={{ maxWidth: "95%" }}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Close
+            </Button>,
+          ]}
+        >
+          {selectedOrder && (
+            <div className="flex flex-col gap-2 py-4">
+              <div className="grid md:grid-cols-2 gap-2">
+                <p ><strong>WholeSaler Name:</strong> {selectedOrder.wholesalerName}</p>
+                <p><strong>Wholesaler Business Name:</strong> {selectedOrder.wholesalerBusinessName}</p>
+                <p><strong>Wholesaler Phone:</strong> {selectedOrder.wholesalerPhone}</p>
+                <p><strong>Wholesaler Bank Details:</strong> {selectedOrder.wholesalerBankDetails}</p>
+                <p><strong>Plaza:</strong> {selectedOrder.Plaza}</p>
+                <p><strong>Address:</strong> {selectedOrder.Address}</p>
+                <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
+                <p><strong>WholeSaler Share:</strong> {selectedOrder.wholesalerShare}</p>
+                <p><strong>Our Commission:</strong> {selectedOrder.ourCommission}</p>
+              </div>
+            </div>
+          )}
+        </Modal>
       </Card>
     </div>
 
