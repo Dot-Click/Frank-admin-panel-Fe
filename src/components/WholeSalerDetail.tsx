@@ -26,6 +26,7 @@ const PickupOrders: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
+  
   const Pickuporders: Order[] = [
     {
       wholesalerPhone: "0300-1234567",
@@ -126,7 +127,6 @@ const PickupOrders: React.FC = () => {
           {pathname}
         </h2>
 
-        {/* Search & Filter Controls */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 w-full">
           <Input.Search
             placeholder="Search orders by ID, customer, or address"
@@ -152,7 +152,6 @@ const PickupOrders: React.FC = () => {
           />
         </div>
 
-        {/* Table Section */}
         <div className="overflow-x-auto mt-4">
           <Table
             columns={columns}

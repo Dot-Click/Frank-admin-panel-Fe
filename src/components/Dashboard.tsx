@@ -11,29 +11,16 @@ import {
 } from "@ant-design/icons";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// Sample data for chart
 const chartData = [
   { name: "Pickup", value: 25 },
   { name: "In Transit", value: 15 },
   { name: "Delivered", value: 80 },
 ];
 
-// Chart colors
 const COLORS = ["#FF9800", "#2196F3", "#4CAF50"];
 
-// const recentOrders = [
-//   { key: "1", orderId: "ORD1001", customer: "Ali Khan", status: "Delivered" },
-//   { key: "2", orderId: "ORD1002", customer: "Ahmed Raza", status: "In Transit" },
-//   { key: "3", orderId: "ORD1003", customer: "Raheel", status: "Pickup" },
-//   { key: "4", orderId: "ORD1004", customer: "Hassan", status: "Delivered" },
-// ];
 
 const Dashboard: React.FC = () => {
-  // const columns = [
-  //   { title: "Order ID", dataIndex: "orderId", key: "orderId" },
-  //   { title: "Customer", dataIndex: "customer", key: "customer" },
-  //   { title: "Status", dataIndex: "status", key: "status" },
-  // ];
 
   return (
     <div>
@@ -104,7 +91,6 @@ const Dashboard: React.FC = () => {
         </Col>
       </Row>
 
-      {/* Chart + Recent Orders */}
       <Row gutter={16} className="min-h-[300px]">
         <Col xs={24}>
           <Card className="rounded-2xl shadow-md " style={{ width: "100%", height: "100%" }}>

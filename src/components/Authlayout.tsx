@@ -13,7 +13,7 @@ const AuthLayout: React.FC = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Set initial state
+    handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -57,7 +57,6 @@ const AuthLayout: React.FC = () => {
       )}
 
 
-      {/* Responsive Styling */}
       <style>
         {`
           @media (max-width: 768px) {

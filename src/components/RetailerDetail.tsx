@@ -15,6 +15,7 @@ const Deliverorder: React.FC = () => {
   const [filter, setFilter] = useState<string>("");
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
+  
   const Deliverorders: Order[] = [
     {
       Address: "Retail Shop A, Defence, Karachi",

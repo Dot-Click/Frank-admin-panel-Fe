@@ -34,7 +34,7 @@ const LoginForm: React.FC = () => {
         <Title className="m-0 mb-1 text-lg text-center">Admin Login</Title>
         <p className="mb-3 -mt-4 text-gray-600 text-sm text-center">Log in to access your account</p>
 
-        <Form.Item <FieldType>
+        <Form.Item<FieldType>
           style={{ padding: '0 20px' }}
           name="Email"
           rules={[

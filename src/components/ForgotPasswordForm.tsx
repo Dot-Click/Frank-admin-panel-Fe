@@ -14,11 +14,7 @@ const ForgotPasswordForm: React.FC = () => {
 
   const onFinish = (values: FieldType) => {
     console.log('Success:', values);
-    // Here you would typically send a request to your backend
-    // to initiate the password reset process.
-    // After successful submission, you might navigate to a confirmation page
-    // or show a success message.
-    navigate("/login"); // Redirect to login after submission for now
+    navigate("/login");
   };
 
   const onFinishFailed = (errorInfo: any) => {
