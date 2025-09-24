@@ -9,12 +9,14 @@ interface Order {
   pickupAddress: string;
   wholesalerName: string;
   wholesalerBusinessName: string;
-  wholesalerBankDetails: string;
+  BankAccountName: string;
+  BankAccountNo: string;
+  BankName: string;
   Plaza: string;
   Address: string;
-  orderValue: number;
-  wholesalerShare: number;
-  ourCommission: number;
+  orderValue: number | string;
+  wholesalerShare: number | string;
+  ourCommission: number | string;
 }
 
 const PickupOrders: React.FC = () => {
@@ -30,36 +32,42 @@ const PickupOrders: React.FC = () => {
       pickupAddress: "Wholesale Market, Karachi",
       wholesalerName: "Khan Wholesalers",
       wholesalerBusinessName: "Khan & Sons Enterprises",
-      wholesalerBankDetails: "Bank A/C: 123456789, Bank Name: ABC Bank",
+      BankAccountName: "Khan Wholesalers",
+      BankAccountNo: "AT611904300234573201",   
+      BankName: "Erste Bank der oesterreichischen Sparkassen AG",
       Plaza: "ABC",
       Address: "Street 123",
-      orderValue: 10000,
-      wholesalerShare: 7000,
-      ourCommission: 3000,
+      orderValue: "₦ 10000",
+      wholesalerShare: "₦ 7000",
+      ourCommission: "₦ 3000",
     },
     {
       wholesalerPhone: "0311-9876543",
       pickupAddress: "Wholesale Market, Karachi",
       wholesalerName: "Raza Distributors",
       wholesalerBusinessName: "Raza & Co.",
-      wholesalerBankDetails: "Bank A/C: 987654321, Bank Name: XYZ Bank",
+      BankAccountName: "Raza Distributors",
+      BankAccountNo: "AT611904300234573201",   
+      BankName: "Erste Bank der oesterreichischen Sparkassen AG",
       Plaza: "ABC",
       Address: "Street 123",
-      orderValue: 15000,
-      wholesalerShare: 10000,
-      ourCommission: 5000,
+      orderValue: "₦ 15000",
+      wholesalerShare: "₦ 10000",
+      ourCommission: "₦ 5000",
     },
     {
       wholesalerPhone: "0311-9876543",
       pickupAddress: "Wholesale Market, Karachi",
       wholesalerName: "Raheel Traders",
       wholesalerBusinessName: "Raheel & Bros.",
-      wholesalerBankDetails: "Bank A/C: 456789123, Bank Name: PQR Bank",
+      BankAccountName: "Raheel Traders",
+      BankAccountNo: "AT611904300234573201",   
+      BankName: "Erste Bank der oesterreichischen Sparkassen AG",
       Plaza: "ABC",
       Address: "Street 123",
-      orderValue: 20000,
-      wholesalerShare: 14000,
-      ourCommission: 6000,
+      orderValue: "₦ 20000",
+      wholesalerShare: "₦ 14000",
+      ourCommission: "₦ 6000",
     },
   ];
 
@@ -76,7 +84,9 @@ const PickupOrders: React.FC = () => {
     { title: "Wholesaler Name", dataIndex: "wholesalerName", key: "wholesalerName" },
     { title: "Wholesaler Business Name", dataIndex: "wholesalerBusinessName", key: "wholesalerBusinessName" },
     { title: "Wholesaler Phone", dataIndex: "wholesalerPhone", key: "wholesalerPhone" },
-    { title: "Wholesaler Bank Details", dataIndex: "wholesalerBankDetails", key: "wholesalerBankDetails" },
+    { title: "Bank Account Name", dataIndex: "BankAccountName", key: "BankAccountName" },
+    { title: "Bank Account No", dataIndex: "BankAccountNo", key: "BankAccountNo" },
+    { title: "Bank Name", dataIndex: "BankName", key: "BankName" },
     { title: "Plaza", dataIndex: "Plaza", key: "Plaza" },
     { title: "Address", dataIndex: "Address", key: "Address" },
     { title: "Order Value", dataIndex: "orderValue", key: "orderValue" },
@@ -170,7 +180,9 @@ const PickupOrders: React.FC = () => {
                 <p ><strong>WholeSaler Name:</strong> {selectedOrder.wholesalerName}</p>
                 <p><strong>Wholesaler Business Name:</strong> {selectedOrder.wholesalerBusinessName}</p>
                 <p><strong>Wholesaler Phone:</strong> {selectedOrder.wholesalerPhone}</p>
-                <p><strong>Wholesaler Bank Details:</strong> {selectedOrder.wholesalerBankDetails}</p>
+                <p><strong>Bank Account Name:</strong> {selectedOrder.BankAccountName}</p>
+                <p><strong>Bank Account No:</strong> {selectedOrder.BankAccountNo}</p>
+                <p><strong>Bank Name:</strong> {selectedOrder.BankName}</p>
                 <p><strong>Plaza:</strong> {selectedOrder.Plaza}</p>
                 <p><strong>Address:</strong> {selectedOrder.Address}</p>
                 <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
