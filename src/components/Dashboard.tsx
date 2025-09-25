@@ -17,7 +17,7 @@ const chartData = [
   { name: "Delivered", value: 80 },
 ];
 
-const COLORS = ["#FF9800", "#2196F3", "#4CAF50"];
+const COLORS = ["#000080", "gradient1", "green"];
 
 
 const Dashboard: React.FC = () => {
@@ -25,28 +25,28 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <Row gutter={16} className="mb-4 flex sm:gap-0 gap-4">
-         <Col xs={24} sm={12} md={6} className="mb-0 md:mb-2">
+        <Col xs={24} sm={12} md={6} className="mb-0 md:mb-2">
           <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <UserSwitchOutlined className="text-3xl" style={{ color: "#ffffff" }}/>
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <UserSwitchOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Users</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
           </Card>
         </Col>
-         <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <UserOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <UserOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Retailers</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
           </Card>
         </Col>
-         <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <ShopOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ShopOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>WholeSaler</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
@@ -54,8 +54,8 @@ const Dashboard: React.FC = () => {
         </Col>
         <Col xs={24} sm={12} md={6}>
           <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <ShoppingCartOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ShoppingCartOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Orders</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
@@ -63,8 +63,8 @@ const Dashboard: React.FC = () => {
         </Col>
         <Col xs={24} sm={12} md={6}>
           <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "#000080" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <ClockCircleOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ClockCircleOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Pickup Orders</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>25</p>
@@ -72,16 +72,16 @@ const Dashboard: React.FC = () => {
         </Col>
         <Col xs={24} sm={12} md={6}>
           <Card className="rounded-2xl shadow-md" style={{ background: "linear-gradient(90deg, #FF7C3A, #FF4B2B)" }}>
-          <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
-            <CarOutlined className="text-3xl" style={{ color: "#ffffff" }} />
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <CarOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>In Transit</h3>
             <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>15</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "green"  }}>
-            <div style={{boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>  
+          <Card className="rounded-2xl shadow-md" style={{ backgroundColor: "green" }}>
+            <div style={{ boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.5)", borderRadius: "50%", marginBottom: "10px", width: "50px", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <CheckCircleOutlined className="text-3xl" style={{ color: "white" }} />
             </div>
             {/* <CheckCircleOutlined className="text-3xl mb-2" style={{ color: "white" }} /> */}
@@ -97,6 +97,12 @@ const Dashboard: React.FC = () => {
             <h3 className="text-lg font-semibold text-nowrap" style={{ color: "#000080" }}>Order Distribution</h3>
             <ResponsiveContainer width="100%" height={250} className="mt-4">
               <PieChart>
+                <defs>
+                  <linearGradient id="gradient1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#FF7C3A" />
+                    <stop offset="100%" stopColor="#FF4B2B" />
+                  </linearGradient>
+                </defs>
                 <Pie
                   data={chartData}
                   cx="50%"
@@ -107,7 +113,13 @@ const Dashboard: React.FC = () => {
                   label
                 >
                   {chartData.map((_entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length].startsWith("gradient")
+                        ? `url(#${COLORS[index % COLORS.length]})`
+                        : COLORS[index % COLORS.length]
+                      }
+                    />
                   ))}
                 </Pie>
                 <Tooltip />

@@ -1,24 +1,34 @@
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, App } from 'antd';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useForgotPasswordFrom } from '../hooks/forgotPassword';
 
 const { Title } = Typography;
 
 type FieldType = {
-  Email?: string;
+  email: string;
 };
 
 const ForgotPasswordForm: React.FC = () => {
   const navigate = useNavigate();
-
+  const { message } = App.useApp()
+  const { mutate: forgotPassword, isPending } = useForgotPasswordFrom()
   const onFinish = (values: FieldType) => {
-    console.log('Success:', values);
-    navigate("/login");
+    forgotPassword(values, {
+      onSuccess: () => {
+        message.success(`Reset Link Sent to ${values.email}`)
+        navigate("/");
+      },
+      onError: (err: any) => {
+        const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
+        message.error(message);
+      }
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    message.error(errorInfo.errorFields[0]?.errors || "Form Validation Failed");
   };
 
   return (
@@ -39,7 +49,7 @@ const ForgotPasswordForm: React.FC = () => {
 
         <Form.Item<FieldType>
           style={{ padding: '0 20px' }}
-          name="Email"
+          name="email"
           rules={[
             { required: true, message: "Please input your email!" },
             { type: 'email', message: 'Please enter a valid email!' }
@@ -56,6 +66,8 @@ const ForgotPasswordForm: React.FC = () => {
           style={{ padding: '0 20px' }}
         >
           <Button
+            loading={isPending}
+            disabled={isPending}
             type="primary"
             htmlType="submit"
             block
