@@ -2,57 +2,58 @@ import React, { useState } from "react";
 import { Table, Input, Card, Select } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useLocation } from "react-router-dom";
+import { useBusinessInfo } from "../hooks/BusinessInfo";
 
-interface Order {
-  Address: string;
-  retailerName: string;
-  retailerPhone: string;
-  EmailAddress: string
-}
+// interface Order {
+//   Address: string;
+//   retailerName: string;
+//   retailerPhone: string;
+//   EmailAddress: string
+// }
 
 const Deliverorder: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
+  const [page, setCurrentPage] = useState<number>(1)
+  const [limit, setlimit] = useState<number>(10)
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
-  
-  const Deliverorders: Order[] = [
-    {
-      Address: "Retail Shop A, Defence, Karachi",
-      retailerName: "Retailer A",
-      retailerPhone: "0345-1122334",
-      EmailAddress: "Abc@gmail.com"
-    },
-    {
-      Address: "Retail Shop B, Clifton, Karachi",
-      retailerName: "Retailer B",
-      retailerPhone: "0333-5566778",
-      EmailAddress: "Abc@gmail.com"
-    },
-    {
-      Address: "Retail Shop C, Gulshan, Karachi",
-      retailerName: "Retailer C",
-      retailerPhone: "0321-9988776",
-      EmailAddress: "Abc@gmail.com"
-    },
+  const { data, isLoading } = useBusinessInfo(page, limit, "retail")
+
+  // const Deliverorders: Order[] = [
+  //   {
+  //     Address: "Retail Shop A, Defence, Karachi",
+  //     retailerName: "Retailer A",
+  //     retailerPhone: "0345-1122334",
+  //     EmailAddress: "Abc@gmail.com"
+  //   },
+  //   {
+  //     Address: "Retail Shop B, Clifton, Karachi",
+  //     retailerName: "Retailer B",
+  //     retailerPhone: "0333-5566778",
+  //     EmailAddress: "Abc@gmail.com"
+  //   },
+  //   {
+  //     Address: "Retail Shop C, Gulshan, Karachi",
+  //     retailerName: "Retailer C",
+  //     retailerPhone: "0321-9988776",
+  //     EmailAddress: "Abc@gmail.com"
+  //   },
+  // ];
+
+  const columns: ColumnsType<any> = [
+    { title: "Retailer Name", dataIndex: "name", key: "name" },
+    { title: "Retailer Phone", dataIndex: "phone", key: "phone" },
+    { title: "Address", dataIndex: "address", key: "address" },
+    { title: "Email Address", dataIndex: "email", key: "email" },
   ];
 
-  const columns: ColumnsType<Order> = [
-    { title: "Retailer Name", dataIndex: "retailerName", key: "retailerName" },
-    { title: "Retailer Phone", dataIndex: "retailerPhone", key: "retailerPhone" },
-    { title: "Address", dataIndex: "Address", key: "Address" },
-    { title: "Email Address", dataIndex: "EmailAddress", key: "EmailAddress" },
-  ];
-
-  const filteredOrders = Deliverorders.filter(order => {
+  const filteredOrders = data?.users.filter(order => {
     const matchesSearch =
-      order.Address.toLowerCase().includes(searchText.toLowerCase()) ||
-      order.retailerName.toLowerCase().includes(searchText.toLowerCase()) ||
-      order.EmailAddress.toLowerCase().includes(searchText.toLowerCase()) ||
-      order.retailerPhone.toLowerCase().includes(searchText.toLowerCase())
-    const matchesFilter = filter ? order.retailerName === filter : true;
-
-    return matchesSearch && matchesFilter;
+      order.name.toLowerCase().includes(searchText.toLowerCase().trim()) ||
+      order.email.toLowerCase().includes(searchText.toLowerCase().trim());
+      const matchesFilter = filter ? order.name === filter : true;
+      return matchesSearch && matchesFilter;
   }
   );
 
@@ -62,7 +63,7 @@ const Deliverorder: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4 capitalize break-words text-nowrap">{pathname}</h2>
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 w-full">
           <Input.Search
-            placeholder="Search orders by Retailer Name, Retailer Shop Name, Retailer Phone, or Address"
+            placeholder="Search by Retailer Name, Email Address"
             allowClear
             enterButton="Search"
             size="large"
@@ -74,23 +75,34 @@ const Deliverorder: React.FC = () => {
             placeholder="Filter by Retailer Name"
             size="large"
             allowClear
-            options={[
-              { value: "Retailer A", label: "Retailer A" },
-              { value: "Retailer B", label: "Retailer B" },
-              { value: "Retailer C", label: "Retailer C" },
-            ]}
+            options={
+              data?.users.map((val) => ({
+                value: val.name,
+                label: val.name
+              }))
+            }
             onChange={(value) => setFilter(value)}
             className="w-full lg:max-w-[300px]"
           />
         </div>
         <div className="overflow-x-auto mt-4">
-        <Table
-          columns={columns}
-          dataSource={filteredOrders}
-          rowKey="key"
-          scroll={{ x: 'max-content' }}
-          className="w-full"
-        />
+          <Table
+            columns={columns}
+            dataSource={filteredOrders}
+            loading={isLoading}
+            rowKey="_id"
+            pagination={{
+              current: data?.pagination.currentPage,
+              pageSize: limit,
+              total: data?.pagination.totalUsers,
+              onChange: (p, l) => {
+                setCurrentPage(p);
+                setlimit(l);
+              },
+            }}
+            scroll={{ x: 'max-content' }}
+            className="w-full"
+          />
         </div>
       </Card>
     </div>
