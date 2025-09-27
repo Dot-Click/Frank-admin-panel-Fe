@@ -76,10 +76,10 @@ const DashboardLayout = () => {
                 >
                     <div className="flex justify-center items-center cursor-pointer">
                         <img
-                            src="/DARcAppLogo.png"
+                            src="/DARCAppLogo1.png"
                             alt=""
                             onClick={() => navigate("/dashboard")}
-                            width={80}
+                            width={120}
                         />
                     </div>
 
@@ -104,10 +104,10 @@ const DashboardLayout = () => {
 
                     <div className="flex justify-between items-center cursor-pointer">
                         <img
-                            src="/DARcAppLogo.png"
+                            src="/DARCAppLogo1.png"
                             alt=""
                             onClick={() => navigate("/dashboard")}
-                            width={80}
+                            width={120}
                         />
                          <Button
                         type="text"
@@ -123,7 +123,7 @@ const DashboardLayout = () => {
                     </div>
 
                     <Menu
-                        style={{ marginTop: 26, background: "transparent", borderRight: "none" }}
+                        style={{ marginTop: 26, background: "transparent", borderRight: "none"}}
                         theme="dark"
                         items={menuItems}
                         onClick={() => setCollapsed(true)}

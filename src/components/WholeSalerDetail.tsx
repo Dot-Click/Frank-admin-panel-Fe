@@ -206,7 +206,7 @@ const PickupOrders: React.FC = () => {
                 <p><strong>Address:</strong> {selectedOrder.address ? selectedOrder.address : 'N/A'}</p>
                 <p><strong>Bank Name:</strong> {selectedOrder.bankName ? selectedOrder.bankName : 'N/A'}</p>
                 <p><strong>Bank Account No:</strong> {selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
-                <p><strong>Verified:</strong> <Tag color="green">{selectedOrder.isVerified ? "Yes" : "No"}</Tag></p>
+                <p><strong>Verified:</strong> <Tag color={selectedOrder.isVerified === true ? "green" : "red"}>{selectedOrder.isVerified ? "Yes" : "No"}</Tag></p>
                 {/* <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
                 <p><strong>WholeSaler Share:</strong> {selectedOrder.wholesalerShare}</p>
                 <p><strong>Our Commission:</strong> {selectedOrder.ourCommission}</p> */}
