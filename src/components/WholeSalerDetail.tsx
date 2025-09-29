@@ -1,9 +1,10 @@
 import React from "react";
-import { Table, Input, Card, Select, Button, Modal, Tag } from "antd";
+import { Table, Input, Card, Select, Button, Modal, Tag, App } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useBusinessInfo, type BusinessInfo } from "../hooks/BusinessInfo";
+import { useUpdateStatus } from "../hooks/updateStatus";
 
 // interface Order {
 //   wholesalerPhone: string;
@@ -27,9 +28,11 @@ const PickupOrders: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<BusinessInfo | null>(null);
   const [page, setCurrentPage] = useState<number>(1)
   const [limit, setlimit] = useState<number>(10)
+  const { message } = App.useApp()
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
   const { data, isLoading } = useBusinessInfo(page, limit, "wholesale")
+  const { mutate: updateStatus, isPending } = useUpdateStatus();
   // const Pickuporders: Order[] = [
   //   {
   //     wholesalerPhone: "0300-1234567",
@@ -83,6 +86,22 @@ const PickupOrders: React.FC = () => {
     setIsModalVisible(false);
     setSelectedOrder(null);
   };
+
+  const handleStatusChange = (record: BusinessInfo, status: boolean) => {
+  updateStatus(
+    { _id: record._id, isActive: status },
+    {
+      onSuccess: () => {
+        message.success(`Wholesaler ${status ? "Deactivated" : "Activated"} successfully`);
+      },
+      onError: (err: any) => {
+        const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
+        message.error(message);
+      },
+    }
+  );
+};
+
   const columns: ColumnsType<any> = [
     { title: "WholeSaler Name", dataIndex: "name", key: "name", render: (val) => val || "N/A" },
     { title: "Email", dataIndex: "email", key: "email", render: (val) => val || "N/A" },
@@ -94,14 +113,33 @@ const PickupOrders: React.FC = () => {
     { title: "Address", dataIndex: "address", key: "address", render: (val) => val || "N/A" },
     { title: "Bank Name", dataIndex: "bankName", key: "bankName", render: (val) => val || "N/A" },
     { title: "Bank Account No", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val || "N/A" },
+    { title: "Bank Account Name", dataIndex: "bankAccountName", key: "bankAccountName", render: (val) => val || "N/A" },
     {
-      title: "Verified", dataIndex: "isVerified", key: "isVerified", render: (v) => {
-        let color = "default";
-        if (v === true) color = "green";
-        if (v === false) color = "red";
-        return <Tag color={color}>{v ? "Yes" : "No"}</Tag>
-      }
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <>
+          {record.isActive ? (
+            <Button
+              type="primary"
+              loading={isPending}
+              onClick={() => handleStatusChange(record, false)}
+            >
+              Activate
+            </Button>
+          ) : (
+            <Button
+              danger
+              loading={isPending}
+              onClick={() => handleStatusChange(record, true)}
+            >
+              DeActivate
+            </Button>
+          )}
+        </>
+      ),
     },
+
     {
       title: "Details",
       dataIndex: "Details",
@@ -206,7 +244,8 @@ const PickupOrders: React.FC = () => {
                 <p><strong>Address:</strong> {selectedOrder.address ? selectedOrder.address : 'N/A'}</p>
                 <p><strong>Bank Name:</strong> {selectedOrder.bankName ? selectedOrder.bankName : 'N/A'}</p>
                 <p><strong>Bank Account No:</strong> {selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
-                <p><strong>Verified:</strong> <Tag color={selectedOrder.isVerified === true ? "green" : "red"}>{selectedOrder.isVerified ? "Yes" : "No"}</Tag></p>
+                <p><strong>Bank Account Name:</strong> {selectedOrder.bankAccountName ? selectedOrder.bankAccountName : 'N/A'}</p>
+                <p><strong>Action:</strong> <Tag color={selectedOrder.isActive === true ? "green" : "red"}>{selectedOrder.isActive ? "Activate" : "DeActivate"}</Tag></p>
                 {/* <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
                 <p><strong>WholeSaler Share:</strong> {selectedOrder.wholesalerShare}</p>
                 <p><strong>Our Commission:</strong> {selectedOrder.ourCommission}</p> */}

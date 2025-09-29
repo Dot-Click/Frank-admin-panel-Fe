@@ -14,7 +14,8 @@ export interface BusinessInfo {
     plazaName?: string;
     bankName?: string;
     bankAccount?: string;
-    isVerified: boolean;
+    bankAccountName?: string;
+    isActive: boolean;
 }
 
 interface Pagination {
@@ -33,11 +34,8 @@ interface BusinessInfoResponse {
 }
 
 const BusinessInfo = async (page?: number, limit?: number, userType?: string) => {
-    const token = localStorage.getItem("token")
-    if (!token) throw new Error("No Token Found")
-
     const response = await api.get("/api/business/users", {
-    params: {
+        params: {
             page,
             limit,
             userType

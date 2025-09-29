@@ -12,6 +12,7 @@ import {
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useBusinessInfo } from "../hooks/BusinessInfo";
 import { LoaderIcon } from "react-hot-toast";
+import { useOrders } from "../hooks/OrderInfo";
 
 const chartData = [
   { name: "Pickup", value: 25 },
@@ -23,14 +24,20 @@ const COLORS = ["#000080", "gradient1", "green"];
 
 
 const Dashboard: React.FC = () => {
-const {data, isLoading} = useBusinessInfo()
-const {
-  pagination: {
-    totalUsers,
-    totalRetailer,
-    totalWholeSaler
+  const { data, isLoading } = useBusinessInfo()
+  const { data: order } = useOrders()
+  const {
+    pagination: {
+      totalUsers,
+      totalRetailer,
+      totalWholeSaler
+    } = {}
+  } = data || {};
+
+  const { pagination: {
+    totalOrders
   } = {}
-} = data || {};
+  } = order || {}
 
   return (
     <div>
@@ -41,7 +48,7 @@ const {
               <UserSwitchOutlined className="text-3xl" style={{ color: "#ffffff", }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Users</h3>
-            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon/> : totalUsers}</p>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon /> : totalUsers}</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -50,7 +57,7 @@ const {
               <UserOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Retailers</h3>
-            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon/> : totalRetailer}</p>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon /> : totalRetailer}</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -59,7 +66,7 @@ const {
               <ShopOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>WholeSaler</h3>
-            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon/> : totalWholeSaler}</p>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon /> : totalWholeSaler}</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -68,7 +75,7 @@ const {
               <ShoppingCartOutlined className="text-3xl" style={{ color: "#ffffff" }} />
             </div>
             <h3 className="text-lg font-semibold" style={{ color: "#ffffff" }}>Total Orders</h3>
-            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>120</p>
+            <p className="text-2xl font-bold" style={{ color: "#ffffff" }}>{isLoading ? <LoaderIcon/> : totalOrders}</p>
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
