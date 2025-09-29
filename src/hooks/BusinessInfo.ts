@@ -37,10 +37,7 @@ const BusinessInfo = async (page?: number, limit?: number, userType?: string) =>
     if (!token) throw new Error("No Token Found")
 
     const response = await api.get("/api/business/users", {
-        headers: {
-            Authorization: token
-        },
-        params: {
+    params: {
             page,
             limit,
             userType

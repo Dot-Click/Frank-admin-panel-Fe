@@ -9,12 +9,7 @@ interface AdminUpdate {
 
 
 const updateProfile = async (data: AdminUpdate) => {
-    const token = localStorage.getItem("token")
-    const response = await api.put("/auth/updateProfile", data, {
-        headers: {
-            Authorization: token
-        }
-    });
+    const response = await api.put("/auth/updateProfile", data);
     return response.data.data;
 };
 

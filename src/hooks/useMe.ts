@@ -21,14 +21,7 @@ interface User {
 }
 
 const getMe = async () => {
-const token = localStorage.getItem("token")
-if(!token) throw new Error("No Token Found")
-
-  const response = await api.get("/auth/me", {
-    headers:{
-        Authorization: token
-    }
-  });
+  const response = await api.get("/auth/me");
   return response.data.data;
 };
 
