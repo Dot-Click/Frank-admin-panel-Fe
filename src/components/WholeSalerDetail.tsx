@@ -92,7 +92,7 @@ const PickupOrders: React.FC = () => {
     { _id: record._id, isActive: status },
     {
       onSuccess: () => {
-        message.success(`Wholesaler ${status ? "Deactivated" : "Activated"} successfully`);
+        message.success(`Wholesaler ${status ? "Activated" : "DeActivated"} successfully`);
       },
       onError: (err: any) => {
         const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
@@ -111,9 +111,9 @@ const PickupOrders: React.FC = () => {
     { title: "Shop Number", dataIndex: "shopNumber", key: "shopNumber", render: (val) => val || "N/A" },
     { title: "Plaza", dataIndex: "plazaName", key: "plazaName", render: (val) => val || "N/A" },
     { title: "Address", dataIndex: "address", key: "address", render: (val) => val || "N/A" },
+    { title: "Bank account Name", dataIndex: "bankAccountName", key: "bankAccountName", render: (val) => val || "N/A" },
+    { title: "Bank account Number", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val || "N/A" },
     { title: "Bank Name", dataIndex: "bankName", key: "bankName", render: (val) => val || "N/A" },
-    { title: "Bank Account No", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val || "N/A" },
-    { title: "Bank Account Name", dataIndex: "bankAccountName", key: "bankAccountName", render: (val) => val || "N/A" },
     {
       title: "Action",
       key: "action",
@@ -242,9 +242,9 @@ const PickupOrders: React.FC = () => {
                 <p><strong>Shop Number:</strong> {selectedOrder.shopNumber ? selectedOrder.shopNumber : 'N/A'}</p>
                 <p><strong>Plaza:</strong> {selectedOrder.plazaName ? selectedOrder.plazaName : 'N/A'}</p>
                 <p><strong>Address:</strong> {selectedOrder.address ? selectedOrder.address : 'N/A'}</p>
+                <p><strong>Bank account Name:</strong> {selectedOrder.bankAccountName ? selectedOrder.bankAccountName : 'N/A'}</p>
+                <p><strong>Bank account Number:</strong> {selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
                 <p><strong>Bank Name:</strong> {selectedOrder.bankName ? selectedOrder.bankName : 'N/A'}</p>
-                <p><strong>Bank Account No:</strong> {selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
-                <p><strong>Bank Account Name:</strong> {selectedOrder.bankAccountName ? selectedOrder.bankAccountName : 'N/A'}</p>
                 <p><strong>Action:</strong> <Tag color={selectedOrder.isActive === true ? "green" : "red"}>{selectedOrder.isActive ? "Activate" : "DeActivate"}</Tag></p>
                 {/* <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
                 <p><strong>WholeSaler Share:</strong> {selectedOrder.wholesalerShare}</p>

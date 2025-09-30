@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tag, Space, Select, Modal, Card, Input, Button } from "antd";
+import { Table, Tag, Space, Select, Modal, Card, Input, Button, App } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useLocation } from "react-router-dom";
 import { useOrders, type orderInfo } from "../hooks/OrderInfo";
+import { useUpdateOrderStatus } from "../hooks/updateOrderStatus";
+import { useQueryClient } from "@tanstack/react-query";
 
 // interface Item {
 //   productName: string;
@@ -27,9 +29,14 @@ const StatusManagement: React.FC = () => {
   const [filter, setFilter] = useState<string>("");
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [selectedOrder, setSelectedOrder] = useState<orderInfo | null>(null);
-  const { data: order } = useOrders()
+  const [page, setCurrentPage] = useState<number>(1)
+  const [limit, setlimit] = useState<number>(10)
+  const [loadingRow, setLoadingRow] = useState<string | null>(null)
+  const { data: order, isLoading } = useOrders(page, limit)
   const [orders, setOrders] = useState<orderInfo[]>([]);
-
+  const { mutate: updateOrderStatus } = useUpdateOrderStatus()
+  const { message } = App.useApp()
+  const queryClient = useQueryClient()
   useEffect(() => {
     if (order?.orders) {
       setOrders(order.orders);
@@ -98,12 +105,26 @@ const StatusManagement: React.FC = () => {
   // ]);
 
 
-  const handleStatusChange = (key: string, newStatus: orderInfo["status"]) => {
-    setOrders((prev) =>
-      prev.map((order) =>
-        order._id === key ? { ...order, status: newStatus } : order
-      )
-    );
+  const handleStatusChange = (record: orderInfo, newStatus: orderInfo["status"]) => {
+    setLoadingRow(record._id)
+    updateOrderStatus({
+      id: record._id,
+      status: newStatus,
+    },
+      {
+        onSuccess: () => {
+          message.success(`Order updated successfully`);
+          queryClient.invalidateQueries({queryKey: ['orders']})
+        },
+        onError: (err: any) => {
+          const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
+          message.error(message);
+        },
+        onSettled: () => {
+          setLoadingRow(null)
+        }
+      }
+    )
   };
 
   const handleView = (record: orderInfo) => {
@@ -127,7 +148,7 @@ const StatusManagement: React.FC = () => {
       key: "status",
       render: (status) => {
         let color = "default";
-        if (status === "pending") color = "orange";
+        if (status === "Pending") color = "orange";
         if (status === "Confirmed") color = "blue";
         if (status === "Processing") color = "purple";
         if (status === "Shipped") color = "purple";
@@ -145,9 +166,11 @@ const StatusManagement: React.FC = () => {
           <Select
             value={record.status}
             style={{ width: 150 }}
-            onChange={(value) => handleStatusChange(record._id, value)}
+            onChange={(value) => handleStatusChange(record, value)}
+            loading={loadingRow === record._id} 
+            disabled={loadingRow === record._id}
             options={[
-              { value: "pending", label: "Pending" },
+              { value: "Pending", label: "Pending" },
               { value: "Confirmed", label: "Confirmed" },
               { value: "Processing", label: "Processing" },
               { value: "Shipped", label: "Shipped" },
@@ -207,7 +230,7 @@ const StatusManagement: React.FC = () => {
             { value: "Shipped", label: "Shipped" },
             { value: "Delivered", label: "Delivered" },
             { value: "Cancelled", label: "Cancelled" },
-            { value: "Refunded", label: "Refunded" }, 
+            { value: "Refunded", label: "Refunded" },
           ]}
           onChange={(value) => setFilter(value)}
           className="w-full lg:max-w-[300px]"
@@ -216,7 +239,17 @@ const StatusManagement: React.FC = () => {
       <div className="overflow-x-auto mt-4">
         <Table
           columns={columns}
+          loading={isLoading}
           dataSource={filteredOrders}
+          pagination={{
+            current: order?.pagination.currentPage,
+            pageSize: limit,
+            total: order?.pagination.totalOrders,
+            onChange: (p, l) => {
+              setCurrentPage(p);
+              setlimit(l);
+            },
+          }}
           rowKey="_id"
           scroll={{ x: 'max-content' }}
           className="w-full"
@@ -233,7 +266,7 @@ const StatusManagement: React.FC = () => {
         {selectedOrder && (
           <div className="flex flex-col gap-4 py-4">
             <div className="grid md:grid-cols-2 gap-2">
-              <p ><strong>Order Number:</strong> {selectedOrder.orderNumber}</p>
+              <p><strong>Order Number:</strong> {selectedOrder.orderNumber}</p>
               <p><strong>Customer Name:</strong> {selectedOrder.customerName}</p>
               <p><strong>Customer Email:</strong> {selectedOrder.customerEmail}</p>
               <p><strong>Customer Phone:</strong> {selectedOrder.customerPhone}</p>
@@ -241,7 +274,7 @@ const StatusManagement: React.FC = () => {
               <p><strong>shippingCost:</strong> {selectedOrder.shippingCost}</p>
               <p><strong>tax:</strong> {selectedOrder.tax}</p>
               <p><strong>totalAmount:</strong> {selectedOrder.totalAmount}</p>
-              <p><strong>status:</strong> <Tag color={selectedOrder.status === "pending" ? "orange" : selectedOrder.status === "processing" ? "blue" : selectedOrder.status === "confirmed" ? "blue" : selectedOrder.status === "shipped" ? "purple" : selectedOrder.status === "delivered" ? "green" : selectedOrder.status === "cancelled" ? "red" : selectedOrder.status === "refunded" ? "red" : "default"}>{selectedOrder.status}</Tag></p>
+              <p><strong>status:</strong> <Tag color={selectedOrder.status === "Pending" ? "orange" : selectedOrder.status === "Processing" ? "purple" : selectedOrder.status === "Confirmed" ? "blue" : selectedOrder.status === "Shipped" ? "purple" : selectedOrder.status === "Delivered" ? "green" : selectedOrder.status === "Cancelled" ? "red" : selectedOrder.status === "Refunded" ? "red" : "default"}>{selectedOrder.status}</Tag></p>
               <p><strong>paymentStatus:</strong> {selectedOrder.paymentStatus}</p>
               <p><strong>paymentMethod:</strong> {selectedOrder.paymentMethod}</p>
               <p><strong>shippingAddress:</strong>{selectedOrder.shippingAddress.street}, {selectedOrder.shippingAddress.city}, {selectedOrder.shippingAddress.state}, {selectedOrder.shippingAddress.country}, {selectedOrder.shippingAddress.zipCode}</p>

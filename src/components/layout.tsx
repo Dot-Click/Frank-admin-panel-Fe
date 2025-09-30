@@ -76,10 +76,10 @@ const DashboardLayout = () => {
                 >
                     <div className="flex justify-center items-center cursor-pointer">
                         <img
-                            src="/DARCAppLogo1.png"
+                            src="/DL-PNG.png"
                             alt=""
                             onClick={() => navigate("/dashboard")}
-                            width={120}
+                            width={150}
                         />
                     </div>
 
@@ -104,10 +104,10 @@ const DashboardLayout = () => {
 
                     <div className="flex justify-between items-center cursor-pointer">
                         <img
-                            src="/DARCAppLogo1.png"
+                            src="/DL-PNG.png"
                             alt=""
                             onClick={() => navigate("/dashboard")}
-                            width={120}
+                            width={150}
                         />
                          <Button
                         type="text"

@@ -50,8 +50,8 @@ const AuthLayout: React.FC = () => {
             margin: "150px 60px"
           }}
         >
-          <img src="/DARCAppLogo1.png" alt="" width={250}/>
-          <p className="text-lg max-w-md">Welcome to DARc Logistics</p>
+          <img src="/DL-PNG.png" alt="DL" width={250} className='mb-0'/>
+          <p className="text-lg max-w-md -mt-2">Welcome to DARc Logistics</p>
         </Content>
       )}
 

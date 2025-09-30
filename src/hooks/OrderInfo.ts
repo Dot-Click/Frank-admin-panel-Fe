@@ -37,7 +37,7 @@ export interface orderInfo {
     shippingCost: number;
     tax: number;
     totalAmount: number;
-    status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled" | "refunded";
+    status: "Pending" | "Confirmed" | "Processing" | "Shipped" | "Delivered" | "Cancelled" | "Refunded";
     paymentStatus: "pending" | "paid" | "failed" | "refunded";
     paymentMethod: "cash_on_delivery" | "bank_transfer" | "credit_card" | "paypal";
     shippingAddress: shippingAddress;

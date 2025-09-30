@@ -1,7 +1,8 @@
 import { App, Button, Card, Form, Input } from "antd"
 import { useLocation } from "react-router-dom"
 import { useMe } from "../hooks/useMe"
-import { useUpdateProfile } from "../hooks/updateProfile";
+import { useUpdateProfile, type AdminUpdate } from "../hooks/updateProfile";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 type FieldType = {
@@ -17,11 +18,21 @@ export const Setting = () => {
     const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
     const { data } = useMe()
     const { mutate: update, isPending } = useUpdateProfile();
+    const queryClient = useQueryClient()
 
     const onFinish = (values: FieldType) => {
-        update(values, {
+        const payload: AdminUpdate = {
+            name: values.name,
+            email: values.email,
+        };
+
+        if (values.password) {
+            payload.password = values.password;
+        }
+        update(payload, {
             onSuccess: () => {
                 message.success("Update Successfully")
+                queryClient.invalidateQueries({queryKey: ['Me']})
             },
             onError: (err: any) => {
                 const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
@@ -59,7 +70,6 @@ export const Setting = () => {
                     >
                         <Input
                             placeholder="Email"
-                            disabled
                         />
                     </Form.Item>
                     <Form.Item<FieldType> label="Password" name="password"
@@ -69,13 +79,13 @@ export const Setting = () => {
                             placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item label="Confirm Password" name="confirmPassword"
+                    {/* <Form.Item label="Confirm Password" name="confirmPassword"
                         rules={[{ required: true, message: "Please input your confirm password!" }, { min: 8, message: 'Confirm password must be at least 8 characters long!' }]}
                     >
                         <Input.Password
                             placeholder="Confirm Password"
                         />
-                    </Form.Item>
+                    </Form.Item> */}
                     <div className="flex justify-end">
                         <Button
                             loading={isPending}

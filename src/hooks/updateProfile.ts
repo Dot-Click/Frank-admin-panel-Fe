@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../config/axiso.config";
 
-interface AdminUpdate {
+export interface AdminUpdate {
     name: string;
     email: string;
-    password: string;
+    password?: string;
 }
 
 
 const updateProfile = async (data: AdminUpdate) => {
-    const response = await api.put("/auth/updateProfile", data);
+    const response = await api.put("/auth/updateAdminProfile", data);
     return response.data.data;
 };
 
