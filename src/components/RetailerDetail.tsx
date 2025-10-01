@@ -42,18 +42,23 @@ const Deliverorder: React.FC = () => {
   // ];
 
   const columns: ColumnsType<any> = [
-    { title: "Retailer Name", dataIndex: "name", key: "name" },
-    { title: "Retailer Phone", dataIndex: "phone", key: "phone" },
-    { title: "Address", dataIndex: "address", key: "address" },
-    { title: "Email Address", dataIndex: "email", key: "email" },
+    { title: "Retailer Name", dataIndex: "name", key: "name", render: (val) => val || "N/A" },
+    { title: "Retailer Phone", dataIndex: "phone", key: "phone", render: (val) => val || "N/A" },
+    { title: "Address", dataIndex: "address", key: "address", render: (val) => (
+        val
+          ? val.split(",").map((part: string, i: number) => <div key={i}>{part.trim()}</div>)
+          : "N/A"
+      ),
+    },
+    { title: "Email Address", dataIndex: "email", key: "email", render: (val) => val || "N/A" },
   ];
 
   const filteredOrders = data?.users.filter(order => {
     const matchesSearch =
       order.name.toLowerCase().includes(searchText.toLowerCase().trim()) ||
       order.email.toLowerCase().includes(searchText.toLowerCase().trim());
-      const matchesFilter = filter ? order.name === filter : true;
-      return matchesSearch && matchesFilter;
+    const matchesFilter = filter ? order.name === filter : true;
+    return matchesSearch && matchesFilter;
   }
   );
 

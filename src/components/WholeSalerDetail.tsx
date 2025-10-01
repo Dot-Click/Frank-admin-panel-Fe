@@ -127,7 +127,7 @@ const PickupOrders: React.FC = () => {
       ),
     },
     { title: "Bank account Name", dataIndex: "bankAccountName", key: "bankAccountName", render: (val) => val || "N/A" },
-    { title: "Bank account Number", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val ? <span style={{ color: "#00014a", fontWeight: 600 }}>{val}</span> : "N/A"},
+    { title: "Bank account Number", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val ? <span style={{ color: "#00014a", fontWeight: 600 }}>{val}</span> : "N/A" },
     { title: "Bank Name", dataIndex: "bankName", key: "bankName", render: (val) => val || "N/A" },
     {
       title: "Action",
@@ -212,8 +212,8 @@ const PickupOrders: React.FC = () => {
             allowClear
             options={
               data?.users.map((val) => ({
-                value: val.name,
-                label: val.name
+                value: val.businessName,
+                label: val.businessName
               }))
             }
             onChange={(value) => setFilter(value)}
@@ -264,7 +264,10 @@ const PickupOrders: React.FC = () => {
                 <p><strong>Plaza:</strong> {selectedOrder.plazaName ? selectedOrder.plazaName : 'N/A'}</p>
                 <p><strong>Address:</strong> {selectedOrder.address ? selectedOrder.address : 'N/A'}</p>
                 <p><strong>Bank account Name:</strong> {selectedOrder.bankAccountName ? selectedOrder.bankAccountName : 'N/A'}</p>
-                <p><strong>Bank account Number:</strong> {selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
+                <div className="flex gap-2">
+                  <strong>Bank account Number:</strong>
+                  <p style={{ color: '#00014a', fontWeight: 600 }}>{selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
+                </div>
                 <p><strong>Bank Name:</strong> {selectedOrder.bankName ? selectedOrder.bankName : 'N/A'}</p>
                 <p><strong>Action:</strong> <Tag color={selectedOrder.isActive === true ? "green" : "red"}>{selectedOrder.isActive ? "Activate" : "DeActivate"}</Tag></p>
                 {/* <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
