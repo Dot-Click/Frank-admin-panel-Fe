@@ -28,11 +28,12 @@ const PickupOrders: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<BusinessInfo | null>(null);
   const [page, setCurrentPage] = useState<number>(1)
   const [limit, setlimit] = useState<number>(10)
+  const [loadingRow, setLoadingRow] = useState<string | null>(null)
   const { message } = App.useApp()
   const location = useLocation()
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
   const { data, isLoading } = useBusinessInfo(page, limit, "wholesale")
-  const { mutate: updateStatus, isPending } = useUpdateStatus();
+  const { mutate: updateStatus } = useUpdateStatus();
   // const Pickuporders: Order[] = [
   //   {
   //     wholesalerPhone: "0300-1234567",
@@ -88,19 +89,23 @@ const PickupOrders: React.FC = () => {
   };
 
   const handleStatusChange = (record: BusinessInfo, status: boolean) => {
-  updateStatus(
-    { _id: record._id, isActive: status },
-    {
-      onSuccess: () => {
-        message.success(`Wholesaler ${status ? "Activated" : "DeActivated"} successfully`);
-      },
-      onError: (err: any) => {
-        const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
-        message.error(message);
-      },
-    }
-  );
-};
+    setLoadingRow(record._id)
+    updateStatus(
+      { _id: record._id, isActive: status },
+      {
+        onSuccess: () => {
+          message.success(`Wholesaler ${status ? "Activated" : "DeActivated"} successfully`);
+        },
+        onError: (err: any) => {
+          const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
+          message.error(message);
+        },
+        onSettled: () => {
+          setLoadingRow(null)
+        }
+      }
+    );
+  };
 
   const columns: ColumnsType<any> = [
     { title: "WholeSaler Name", dataIndex: "name", key: "name", render: (val) => val || "N/A" },
@@ -110,9 +115,19 @@ const PickupOrders: React.FC = () => {
     { title: "Business Name", dataIndex: "businessName", key: "businessName", render: (val) => val || "N/A" },
     { title: "Shop Number", dataIndex: "shopNumber", key: "shopNumber", render: (val) => val || "N/A" },
     { title: "Plaza", dataIndex: "plazaName", key: "plazaName", render: (val) => val || "N/A" },
-    { title: "Address", dataIndex: "address", key: "address", render: (val) => val || "N/A" },
+    {
+      title: "Address",
+      dataIndex: "address",
+      width: "250px",
+      key: "address",
+      render: (val) => (
+        val
+          ? val.split(",").map((part: string, i: number) => <div key={i}>{part.trim()}</div>)
+          : "N/A"
+      ),
+    },
     { title: "Bank account Name", dataIndex: "bankAccountName", key: "bankAccountName", render: (val) => val || "N/A" },
-    { title: "Bank account Number", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val || "N/A" },
+    { title: "Bank account Number", dataIndex: "bankAccount", key: "bankAccount", render: (val) => val ? <span style={{ color: "#00014a", fontWeight: 600 }}>{val}</span> : "N/A"},
     { title: "Bank Name", dataIndex: "bankName", key: "bankName", render: (val) => val || "N/A" },
     {
       title: "Action",
@@ -121,16 +136,22 @@ const PickupOrders: React.FC = () => {
         <>
           {record.isActive ? (
             <Button
-              type="primary"
-              loading={isPending}
+              style={{
+                backgroundColor: "green",
+                color: "white"
+              }}
+              loading={loadingRow === record._id}
               onClick={() => handleStatusChange(record, false)}
             >
               Activate
             </Button>
           ) : (
             <Button
-              danger
-              loading={isPending}
+              style={{
+                backgroundColor: "red",
+                color: "white"
+              }}
+              loading={loadingRow === record._id}
               onClick={() => handleStatusChange(record, true)}
             >
               DeActivate

@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useOrders, type orderInfo } from "../hooks/OrderInfo";
 import { useUpdateOrderStatus } from "../hooks/updateOrderStatus";
 import { useQueryClient } from "@tanstack/react-query";
+import { PictureOutlined } from '@ant-design/icons';
 
 // interface Item {
 //   productName: string;
@@ -114,7 +115,7 @@ const StatusManagement: React.FC = () => {
       {
         onSuccess: () => {
           message.success(`Order updated successfully`);
-          queryClient.invalidateQueries({queryKey: ['orders']})
+          queryClient.invalidateQueries({ queryKey: ['orders'] })
         },
         onError: (err: any) => {
           const message = err?.response?.data?.message || err?.message || "Something Went Wrong"
@@ -167,7 +168,7 @@ const StatusManagement: React.FC = () => {
             value={record.status}
             style={{ width: 150 }}
             onChange={(value) => handleStatusChange(record, value)}
-            loading={loadingRow === record._id} 
+            loading={loadingRow === record._id}
             disabled={loadingRow === record._id}
             options={[
               { value: "Pending", label: "Pending" },
@@ -289,13 +290,29 @@ const StatusManagement: React.FC = () => {
                   title: "Image",
                   dataIndex: "product",
                   key: "product",
-                  render: (text) => (
+                  render: (product: { images?: string[] }) => (
                     <div className="flex flex-wrap gap-2">
-                      {text.images.map((image: string, index: number) => (
-                        <img key={index} src={image} alt={`product-image-${index}`} className="w-10 h-10 object-cover rounded-md" />
-                      ))}
+                      {product?.images && product.images.length > 0 ? (
+                        product.images.map((image: string, index: number) =>
+                          image ? (
+                            <img
+                              key={index}
+                              src={image}
+                              alt={`product-image-${index}`}
+                              className="w-10 h-10 object-cover rounded-md"
+                            />
+                          ) : (
+                            <PictureOutlined
+                              key={index}
+                              style={{ fontSize: 24, color: "#bbb" }}
+                            />
+                          )
+                        )
+                      ) : (
+                        <PictureOutlined style={{ fontSize: 40, color: "#bbb" }} />
+                      )}
                     </div>
-                  )
+                  ),
                 },
                 { title: "wholesaleName", dataIndex: "wholesaleName", key: "wholesaleName" },
                 { title: "Product Name", dataIndex: "productName", key: "productName" },
