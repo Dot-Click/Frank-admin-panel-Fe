@@ -143,7 +143,7 @@ const PickupOrders: React.FC = () => {
               loading={loadingRow === record._id}
               onClick={() => handleStatusChange(record, false)}
             >
-              Activate
+              Activated
             </Button>
           ) : (
             <Button
@@ -154,7 +154,7 @@ const PickupOrders: React.FC = () => {
               loading={loadingRow === record._id}
               onClick={() => handleStatusChange(record, true)}
             >
-              DeActivate
+              DeActivated
             </Button>
           )}
         </>
@@ -269,7 +269,7 @@ const PickupOrders: React.FC = () => {
                   <p style={{ color: '#00014a', fontWeight: 600 }}>{selectedOrder.bankAccount ? selectedOrder.bankAccount : 'N/A'}</p>
                 </div>
                 <p><strong>Bank Name:</strong> {selectedOrder.bankName ? selectedOrder.bankName : 'N/A'}</p>
-                <p><strong>Action:</strong> <Tag color={selectedOrder.isActive === true ? "green" : "red"}>{selectedOrder.isActive ? "Activate" : "DeActivate"}</Tag></p>
+                <p><strong>Action:</strong> <Tag color={selectedOrder.isActive === true ? "green" : "red"}>{selectedOrder.isActive ? "Activated" : "DeActivated"}</Tag></p>
                 {/* <p><strong>Order Value:</strong> {selectedOrder.orderValue}</p>
                 <p><strong>WholeSaler Share:</strong> {selectedOrder.wholesalerShare}</p>
                 <p><strong>Our Commission:</strong> {selectedOrder.ourCommission}</p> */}
