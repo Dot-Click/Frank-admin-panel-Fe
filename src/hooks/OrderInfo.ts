@@ -67,7 +67,6 @@ const fetchOrders = async (page?: number, limit?: number) => {
             limit,
         }
     });
-    console.log(response.data.data);
     return response.data.data as OrderInfoResponse;
 };
 

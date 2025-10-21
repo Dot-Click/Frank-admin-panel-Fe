@@ -6,20 +6,6 @@ import { useLocation } from "react-router-dom";
 import { useBusinessInfo, type BusinessInfo } from "../hooks/BusinessInfo";
 import { useUpdateStatus } from "../hooks/updateStatus";
 
-// interface Order {
-//   wholesalerPhone: string;
-//   pickupAddress: string;
-//   wholesalerName: string;
-//   wholesalerBusinessName: string;
-//   BankAccountName: string;
-//   BankAccountNo: string;
-//   BankName: string;
-//   Plaza: string;
-//   Address: string;
-//   orderValue: number | string;
-//   wholesalerShare: number | string;
-//   ourCommission: number | string;
-// }
 
 const PickupOrders: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -34,50 +20,7 @@ const PickupOrders: React.FC = () => {
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ")
   const { data, isLoading } = useBusinessInfo(page, limit, "wholesale")
   const { mutate: updateStatus } = useUpdateStatus();
-  // const Pickuporders: Order[] = [
-  //   {
-  //     wholesalerPhone: "0300-1234567",
-  //     pickupAddress: "Wholesale Market, Karachi",
-  //     wholesalerName: "Khan Wholesalers",
-  //     wholesalerBusinessName: "Khan & Sons Enterprises",
-  //     BankAccountName: "Khan Wholesalers",
-  //     BankAccountNo: "AT611904300234573201",
-  //     BankName: "Erste Bank der oesterreichischen Sparkassen AG",
-  //     Plaza: "ABC",
-  //     Address: "Street 123",
-  //     orderValue: "₦ 10000",
-  //     wholesalerShare: "₦ 7000",
-  //     ourCommission: "₦ 3000",
-  //   },
-  //   {
-  //     wholesalerPhone: "0311-9876543",
-  //     pickupAddress: "Wholesale Market, Karachi",
-  //     wholesalerName: "Raza Distributors",
-  //     wholesalerBusinessName: "Raza & Co.",
-  //     BankAccountName: "Raza Distributors",
-  //     BankAccountNo: "AT611904300234573201",
-  //     BankName: "Erste Bank der oesterreichischen Sparkassen AG",
-  //     Plaza: "ABC",
-  //     Address: "Street 123",
-  //     orderValue: "₦ 15000",
-  //     wholesalerShare: "₦ 10000",
-  //     ourCommission: "₦ 5000",
-  //   },
-  //   {
-  //     wholesalerPhone: "0311-9876543",
-  //     pickupAddress: "Wholesale Market, Karachi",
-  //     wholesalerName: "Raheel Traders",
-  //     wholesalerBusinessName: "Raheel & Bros.",
-  //     BankAccountName: "Raheel Traders",
-  //     BankAccountNo: "AT611904300234573201",
-  //     BankName: "Erste Bank der oesterreichischen Sparkassen AG",
-  //     Plaza: "ABC",
-  //     Address: "Street 123",
-  //     orderValue: "₦ 20000",
-  //     wholesalerShare: "₦ 14000",
-  //     ourCommission: "₦ 6000",
-  //   },
-  // ];
+
   const handleView = (record: any) => {
     setSelectedOrder(record);
     setIsModalVisible(true);

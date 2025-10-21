@@ -10,6 +10,7 @@ import AuthLayout from "./components/Authlayout";
 import { SettingPage } from "./page/Setting.page";
 import Protectedroutes from "./protectedRoutes/protectedroutes";
 import Publicroutes from "./protectedRoutes/publicroutes";
+import RiderPage from "./page/Rider.page";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="wholesaler-details" element={<Pickuporderpage />} />
             <Route path="retailer-details" element={<Deliverorderpage />} />
             <Route path="order-status" element={<StatusManagementpage />} />
+            <Route path="rider-detail" element={<RiderPage />} />
             <Route path="settings" element={<SettingPage />} />
           </Route>
         </Route>
@@ -35,5 +37,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

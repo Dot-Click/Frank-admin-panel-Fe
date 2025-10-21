@@ -53,6 +53,12 @@ const DashboardLayout = () => {
         },
         {
             key: "5",
+            icon: <ProfileOutlined style={{ color: "#fff", fontSize: "16px" }} />,
+            label: "Rider Details",
+            onClick: () => navigate("/dashboard/rider-detail"),
+        },
+        {
+            key: "6",
             icon: <SettingOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Settings",
             onClick: () => navigate("/dashboard/settings"),
