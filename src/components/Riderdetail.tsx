@@ -108,8 +108,8 @@ const Riderdetail: React.FC = () => {
     try {
       const response = await api.put(`/api/admin/riders/${selectedRider._id}/commission`, {
         commissionPercentage: parseFloat(commissionValue),
+        reason: "Commission updated by admin",
       });
-
       if (response.data.success) {
         message.success(response.data.data.message || "Commission updated successfully");
         queryClient.invalidateQueries({ queryKey: ["riderinfo"] });
@@ -117,8 +117,10 @@ const Riderdetail: React.FC = () => {
       } else {
         message.error(response.data.message);
       }
+      console.log(response);
     } catch (err: any) {
       message.error(err.response?.data?.message || "Failed to update commission");
+      console.log(err.response?.data?.message);
     } finally {
       setCommissionLoading(false);
     }
@@ -289,14 +291,16 @@ const Riderdetail: React.FC = () => {
                 <p><strong>Bank Account Number:</strong> {selectedRider.bankDetails?.accountNumber ? selectedRider.bankDetails.accountNumber : 'N/A'}</p>
                 <p><strong>Bank Name:</strong> {selectedRider.bankDetails?.bankName ? selectedRider.bankDetails.bankName : 'N/A'}</p>
                 <p><strong>bank Code:</strong> {selectedRider.bankDetails?.bankCode ? selectedRider.bankDetails.bankCode : 'N/A'}</p>
-                <p><strong>Total Earnings:</strong> {selectedRider.wallet?.totalEarnings ? selectedRider.wallet.totalEarnings : 'N/A'}</p>
-                <p><strong>Current Balance:</strong> {selectedRider.wallet?.balance ? selectedRider.wallet.balance : 'N/A'}</p>
-                <p><strong>Pending Withdrawals:</strong> {selectedRider.wallet?.pendingWithdrawals ? selectedRider.wallet.pendingWithdrawals : 'N/A'}</p>
-                <p><strong>Rating:</strong> {selectedRider.performance?.rating ? selectedRider.performance.rating : 'N/A'}</p>
-                <p><strong>Total Deliveries:</strong> {selectedRider.performance?.totalDeliveries ? selectedRider.performance.totalDeliveries : 'N/A'}</p>
-                <p><strong>On-Time Deliveries:</strong> {selectedRider.performance?.onTimeDeliveries ? selectedRider.performance.onTimeDeliveries : 'N/A'}</p>
-                <p><strong>Cancelled Deliveries:</strong> {selectedRider.performance?.cancelledDeliveries ? selectedRider.performance.cancelledDeliveries : 'N/A'}</p>
-                <p><strong>Total Earnings:</strong> {selectedRider.performance?.totalEarnings ? selectedRider.performance.totalEarnings : 'N/A'}</p>
+                <p><strong>Total Earnings:</strong> {selectedRider.wallet?.totalEarnings}</p>
+                <p><strong>Current Balance:</strong> {selectedRider.wallet?.balance}</p>
+                <p><strong>Pending Withdrawals:</strong> {selectedRider.wallet?.pendingWithdrawals}</p>
+                <p><strong>Rating:</strong> {selectedRider.performance?.rating}</p>
+                <p><strong>Total Deliveries:</strong> {selectedRider.performance?.totalDeliveries}</p>
+                <p><strong>On-Time Deliveries:</strong> {selectedRider.performance?.onTimeDeliveries}</p>
+                <p><strong>Cancelled Deliveries:</strong> {selectedRider.performance?.cancelledDeliveries}</p>
+                <p><strong>Average Delivery Time:</strong> {selectedRider.performance?.averageDeliveryTime}</p>
+                <p><strong>Total Working Hours:</strong> {selectedRider.preferences?.workingHours?.start} - {selectedRider.preferences?.workingHours?.end}</p>
+                <p><strong>Commission Percentage:</strong> {selectedRider.adminSettings?.commissionPercentage}%</p>
               </div>
             </div>
           )}

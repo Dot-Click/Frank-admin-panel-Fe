@@ -88,16 +88,6 @@ export interface adminSettings {
     rejectionNotes: string;
 }
 
-// export interface vehicleInfo {
-//     type: string;
-//     registrationNumber: string;
-//     model: string;
-//     year: number;
-//     insuranceNumber: string;
-//     insuranceExpiry: string;
-//     vehiclePhotos: string[];
-// }
-
 export interface RiderInfo {
     applicationStatus: "pending" | "under_review" | "approved" | "rejected"
     _id: string;
@@ -113,7 +103,6 @@ export interface RiderInfo {
     notificationSettings: notificationSettings;
     preferences: preferences;
     adminSettings: adminSettings;
-    // vehicleInfo: vehicleInfo;
     isActive: boolean;
     isVerified: boolean;
     lastActiveAt: string;
