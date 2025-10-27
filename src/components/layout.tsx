@@ -1,10 +1,13 @@
 import {
+    CarOutlined,
     HomeOutlined,
     MenuOutlined,
     ProfileOutlined,
     SettingOutlined,
     ShopOutlined,
     UserOutlined,
+    DollarOutlined,
+    MoneyCollectOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, Drawer } from "antd";
 import DropdownMenu from "./Dropdown";
@@ -53,12 +56,24 @@ const DashboardLayout = () => {
         },
         {
             key: "5",
-            icon: <ProfileOutlined style={{ color: "#fff", fontSize: "16px" }} />,
+            icon: <CarOutlined style={{ color: "#fff", fontSize: "16px" }}/>,
             label: "Rider Details",
             onClick: () => navigate("/dashboard/rider-detail"),
         },
         {
             key: "6",
+            icon: <DollarOutlined style={{ color: "#fff", fontSize: "16px" }} />,
+            label: "Commission History",
+            onClick: () => navigate("/dashboard/commission-history"),
+        },
+        {
+            key: "8",
+            icon: <MoneyCollectOutlined style={{ color: "#fff", fontSize: "16px" }} />,
+            label: "Payout",
+            onClick: () => navigate("/dashboard/payout"),
+        },
+        {
+            key: "7",
             icon: <SettingOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Settings",
             onClick: () => navigate("/dashboard/settings"),

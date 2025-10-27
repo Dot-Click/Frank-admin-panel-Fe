@@ -11,6 +11,8 @@ import { SettingPage } from "./page/Setting.page";
 import Protectedroutes from "./protectedRoutes/protectedroutes";
 import Publicroutes from "./protectedRoutes/publicroutes";
 import RiderPage from "./page/Rider.page";
+import CommissionHistoryPage from "./page/CommissionHistory.page";
+import PayoutPage from "./page/Payout.page";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
             <Route path="retailer-details" element={<Deliverorderpage />} />
             <Route path="order-status" element={<StatusManagementpage />} />
             <Route path="rider-detail" element={<RiderPage />} />
+            <Route path="commission-history" element={<CommissionHistoryPage />} />
+            <Route path="payout" element={<PayoutPage />} />
             <Route path="settings" element={<SettingPage />} />
           </Route>
         </Route>
