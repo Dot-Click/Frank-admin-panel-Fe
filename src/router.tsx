@@ -13,6 +13,8 @@ import Publicroutes from "./protectedRoutes/publicroutes";
 import RiderPage from "./page/Rider.page";
 import CommissionHistoryPage from "./page/CommissionHistory.page";
 import PayoutPage from "./page/Payout.page";
+import Trackorderpage from "./page/Trackorder.page";
+import ReferalPage from "./page/Referal.page";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="retailer-details" element={<Deliverorderpage />} />
             <Route path="order-status" element={<StatusManagementpage />} />
             <Route path="rider-detail" element={<RiderPage />} />
+            <Route path="track-performance" element={<Trackorderpage/>} />
+            <Route path="referal" element={<ReferalPage/>} />
             <Route path="commission-history" element={<CommissionHistoryPage />} />
             <Route path="payout" element={<PayoutPage />} />
             <Route path="settings" element={<SettingPage />} />

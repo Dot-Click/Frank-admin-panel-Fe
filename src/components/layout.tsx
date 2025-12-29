@@ -8,6 +8,8 @@ import {
     UserOutlined,
     DollarOutlined,
     MoneyCollectOutlined,
+    TruckOutlined,
+    ShareAltOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, Drawer } from "antd";
 import DropdownMenu from "./Dropdown";
@@ -56,24 +58,36 @@ const DashboardLayout = () => {
         },
         {
             key: "5",
-            icon: <CarOutlined style={{ color: "#fff", fontSize: "16px" }}/>,
+            icon: <CarOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Rider Details",
             onClick: () => navigate("/dashboard/rider-detail"),
         },
         {
             key: "6",
+            icon: <TruckOutlined style={{ color: "#fff", fontSize: "16px" }} />,
+            label: "Track Performance",
+            onClick: () => navigate("/dashboard/track-performance"),
+        },
+        {
+            key: "7",
+            icon: <ShareAltOutlined style={{ color: "#fff", fontSize: "16px" }}/>,
+            label: "Referal",
+            onClick: () => navigate("/dashboard/referal"),
+        },
+        {
+            key: "8",
             icon: <DollarOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Commission History",
             onClick: () => navigate("/dashboard/commission-history"),
         },
         {
-            key: "8",
+            key: "9",
             icon: <MoneyCollectOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Payout",
             onClick: () => navigate("/dashboard/payout"),
         },
         {
-            key: "7",
+            key: "10",
             icon: <SettingOutlined style={{ color: "#fff", fontSize: "16px" }} />,
             label: "Settings",
             onClick: () => navigate("/dashboard/settings"),
@@ -130,21 +144,21 @@ const DashboardLayout = () => {
                             onClick={() => navigate("/dashboard")}
                             width={150}
                         />
-                         <Button
-                        type="text"
-                        icon={<MenuOutlined style={{ color: "#fff" }} />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: "16px",
-                            width: 64,
-                            height: 64,
-                            color: "#fff",
-                        }}
-                    />
+                        <Button
+                            type="text"
+                            icon={<MenuOutlined style={{ color: "#fff" }} />}
+                            onClick={() => setCollapsed(!collapsed)}
+                            style={{
+                                fontSize: "16px",
+                                width: 64,
+                                height: 64,
+                                color: "#fff",
+                            }}
+                        />
                     </div>
 
                     <Menu
-                        style={{ marginTop: 26, background: "transparent", borderRight: "none"}}
+                        style={{ marginTop: 26, background: "transparent", borderRight: "none" }}
                         theme="dark"
                         items={menuItems}
                         onClick={() => setCollapsed(true)}
