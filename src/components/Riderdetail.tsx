@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useRiders } from "../hooks/RiderInfo";
 import { api } from "../config/axiso.config";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRidercommisionhistoryhook } from "../hooks/Ridercommisionhistoryhook";
 
 const Riderdetail: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -18,15 +19,23 @@ const Riderdetail: React.FC = () => {
   const [commissionLoading, setCommissionLoading] = useState<boolean>(false);
   const [commissionValue, setCommissionValue] = useState<string>("");
   const [selectedRider, setSelectedRider] = useState<any>(null);
+  const [selectedRiderCommission, setSelectedRiderCommission] = useState<any>(null);
+  const [isCommissionHistoryVisible, setIsCommissionHistoryVisible] = useState<boolean>(false);
   const { message } = App.useApp();
   const location = useLocation();
   const pathname = location.pathname.split("/").pop()?.replace(/-/g, " ");
   const queryClient = useQueryClient();
   const { data, isLoading } = useRiders(page, limit);
-
+  const { data: commissionHistoryResponse, isLoading: commissionHistoryLoading} = useRidercommisionhistoryhook(selectedRiderCommission?._id);
+  const commissionHistory = commissionHistoryResponse?.commissionHistory || [];
   const handleView = (record: any) => {
     setSelectedRider(record);
     setIsModalVisible(true);
+  };
+
+  const handleViewCommissionHistory = (record: any) => {
+    setSelectedRiderCommission(record);
+    setIsCommissionHistoryVisible(true);
   };
 
   const handleCancel = () => {
@@ -89,7 +98,9 @@ const Riderdetail: React.FC = () => {
   const handleViewCommission = (record: any) => {
     setSelectedRider(record);
     setIsCommisionModalVisible(true);
-    setCommissionValue(record?.commission?.toString() || "");
+    setCommissionValue(
+      record?.adminSettings?.commissionPercentage?.toString() || ""
+    );
   };
 
   const HandleUpdateCommission = async () => {
@@ -147,7 +158,13 @@ const Riderdetail: React.FC = () => {
         <Tag color={val ? "green" : "red"}>{val ? "Activated" : "Deactivated"}</Tag>
       ),
     },
-    { title: "address", dataIndex: ["personalInfo", "address"], key: "address", render: (val) => val || "N/A" },
+    {
+      title: "address", dataIndex: ["personalInfo", "address"], key: "address", render: (val) => (
+        val
+          ? val.split(",").map((part: string, i: number) => <div key={i}>{part.trim()}</div>)
+          : "N/A"
+      )
+    },
     {
       title: "Action",
       key: "action",
@@ -179,6 +196,17 @@ const Riderdetail: React.FC = () => {
       ),
     },
     {
+      title: "Commission (%)",
+      key: "commission",
+      dataIndex: ["adminSettings", "commissionPercentage"],
+      align: "center",
+      render: (val) => (
+        <Tag color="blue">
+          {val !== undefined ? `${val}%` : "N/A"}
+        </Tag>
+      ),
+    },
+    {
       title: "Commission",
       dataIndex: "Commission",
       key: "Commission",
@@ -195,9 +223,23 @@ const Riderdetail: React.FC = () => {
       ),
     },
     {
-      title: "Details", dataIndex: "Details", key: "Details",
+      title: "Rider Detail", dataIndex: "Details", key: "Details",
       render: (_, record) => (
         <Button onClick={() => handleView(record)} style={{ background: "linear-gradient(to right, #000080, #00014a)", color: "white" }}>
+          Details
+        </Button>
+      )
+    },
+    {
+      title: "Commission List", dataIndex: "Details", key: "Details",
+      render: (_, record) => (
+        <Button
+          onClick={() => handleViewCommissionHistory(record)}
+          style={{
+            background: "linear-gradient(to right, #000080, #00014a)",
+            color: "white",
+          }}
+        >
           Details
         </Button>
       )
@@ -264,8 +306,8 @@ const Riderdetail: React.FC = () => {
             className="w-full"
           />
         </div>
-
         <Modal
+
           title="Rider Details"
           open={isModalVisible}
           onCancel={handleCancel}
@@ -338,6 +380,85 @@ const Riderdetail: React.FC = () => {
               style={{ width: "100%" }}
             />
           </Flex>
+        </Modal>
+
+        <Modal
+          title={`Commission History - ${commissionHistoryResponse?.rider?.name || ""}`}
+          open={isCommissionHistoryVisible}
+          onCancel={() => {
+            setIsCommissionHistoryVisible(false);
+            setSelectedRiderCommission(null);
+          }}
+          width={900}
+          footer={[
+            <Button
+              key="close"
+              onClick={() => setIsCommissionHistoryVisible(false)}
+            >
+              Close
+            </Button>,
+          ]}
+        >
+          <Table
+            rowKey="id"
+            loading={commissionHistoryLoading}
+            dataSource={commissionHistory}
+            pagination={false}
+            columns={[
+              {
+                title: "Previous (%)",
+                dataIndex: "previousCommission",
+                align: "center",
+                render: (val) => `${val}%`,
+              },
+              {
+                title: "New (%)",
+                dataIndex: "newCommission",
+                align: "center",
+                render: (val) => (
+                  <Tag color="blue">{val}%</Tag>
+                ),
+              },
+              {
+                title: "Change",
+                align: "center",
+                render: (_, record: { changeType: string; changeAmount: number }) => (
+                  <Tag
+                    color={
+                      record.changeType === "increase"
+                        ? "green"
+                        : record.changeType === "decrease"
+                          ? "red"
+                          : "default"
+                    }
+                  >
+                    {record.changeType} ({record.changeAmount}%)
+                  </Tag>
+                ),
+              },
+              {
+                title: "Status",
+                dataIndex: "status",
+                align: "center",
+                render: (val) => (
+                  <Tag color={val === "active" ? "green" : "red"}>
+                    {val}
+                  </Tag>
+                ),
+              },
+              {
+                title: "Updated By",
+                dataIndex: ["admin", "name"],
+                render: (val) => val || "System",
+              },
+              {
+                title: "Effective Date",
+                dataIndex: "effectiveDate",
+                render: (val) =>
+                  new Date(val).toLocaleString(),
+              },
+            ]}
+          />
         </Modal>
 
       </Card>
